@@ -8,6 +8,7 @@ import { ChevronLeft, LayoutDashboard, Users, Menu, Boxes } from "lucide-react";
 import { useMediaQuery } from "react-responsive";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const Sidebar = () => {
   let isTabletMid = useMediaQuery({ query: "(max-width: 768px)" });
@@ -25,7 +26,7 @@ const Sidebar = () => {
 
   useEffect(() => {
     isTabletMid && setOpen(false);
-  }, [pathname]);
+  }, [pathname, isTabletMid]);
 
   const Nav_animation = isTabletMid
     ? {
@@ -78,7 +79,7 @@ const Sidebar = () => {
          lg:relative"
       >
         <div className="mx-3.5 flex items-center gap-3.5 py-3 font-medium">
-          <img src="icon.png" alt="" width={45} />
+          <Image src="/icon.png" alt="icon" width={45} height={50} />
           <span className="whitespace-pre text-xl">GadgeXhub</span>
         </div>
 
