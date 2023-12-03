@@ -1,0 +1,222 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Account {
+  id                String  @id
+  providerAccountId String
+  userId            String
+  expires_at        Int?
+  provider          String
+  session_state     String?
+  type              String
+  access_token      String?
+  id_token          String?
+  refresh_token     String?
+  scope             String?
+  token_type        String?
+  User              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Address {
+  address_id      Int     @id @default(autoincrement())
+  name            String
+  phone           String?
+  address         String
+  district        String
+  state           String
+  pincode         String
+  landmark        String?
+  alternate_phone String?
+  is_default      Boolean @default(true)
+  is_deleted      Boolean @default(false)
+  userId          String
+  locality        String
+  User            User    @relation(fields: [userId], references: [id])
+  Order           Order[]
+
+  @@index([userId], map: "user_id_index")
+}
+
+model Admin {
+  id       String    @id @default(cuid())
+  name     String
+  email    String    @unique
+  password String
+  role     AdminRole @default(SUPERADMIN)
+}
+
+enum AdminRole {
+  SUPERADMIN
+  GUEST
+}
+
+model BestDeal {
+  id          Int    @id @default(autoincrement())
+  imageUrl    String
+  title       String
+  description String
+  url         String
+  price       Float
+}
+
+model Cart {
+  id          Int        @id @default(autoincrement())
+  userId      String?    @unique
+  guestUserId String?    @unique
+  GuestUser   GuestUser? @relation(fields: [guestUserId], references: [id])
+  User        User?      @relation(fields: [userId], references: [id])
+  CartItem    CartItem[]
+
+  @@index([guestUserId], map: "guestUserId_index")
+  @@index([userId], map: "userId_index")
+}
+
+model CartItem {
+  id        Int     @id @default(autoincrement())
+  productId String
+  quantity  Int
+  cartId    Int
+  color     String?
+  Cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  Product   Product @relation(fields: [productId], references: [id])
+}
+
+model Category {
+  id             Int        @id @default(autoincrement())
+  name           String
+  parentId       Int?
+  Category       Category?  @relation("CategoryToCategory", fields: [parentId], references: [id])
+  other_Category Category[] @relation("CategoryToCategory")
+  Product        Product[]
+}
+
+model GuestUser {
+  id             String   @id
+  expirationDate DateTime
+  Cart           Cart?
+}
+
+model HeroBanner {
+  id          Int    @id @default(autoincrement())
+  title       String
+  description String
+  basePrice   Float
+  offerPrice  Float
+  url         String
+  imageUrl    String
+  imageUrlSm  String
+}
+
+model Image {
+  id            Int     @id @default(autoincrement())
+  imagePublicId String
+  productId     String
+  Product       Product @relation(fields: [productId], references: [id])
+
+  @@unique([productId, id])
+}
+
+model Order {
+  id               String      @id @unique
+  orderDate        DateTime    @default(now())
+  total            Float
+  userId           String
+  payment_verified Boolean     @default(false)
+  status           String      @default("pending")
+  addressId        Int
+  Address          Address     @relation(fields: [addressId], references: [address_id])
+  User             User        @relation(fields: [userId], references: [id])
+  OrderItem        OrderItem[]
+  Payment          Payment?
+}
+
+model OrderItem {
+  id         Int     @id @default(autoincrement())
+  productId  String
+  quantity   Int
+  color      String?
+  orderId    String
+  basePrice  Float
+  offerPrice Float
+  Order      Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  Product    Product @relation(fields: [productId], references: [id])
+}
+
+model Payment {
+  id             Int    @id @default(autoincrement())
+  rzr_order_id   String @unique
+  rzr_payment_id String @unique
+  orderId        String @unique
+  amount         Float
+  method         String
+  via            String
+  Order          Order  @relation(fields: [orderId], references: [id])
+}
+
+model Product {
+  id               String      @id
+  slug             String
+  title            String
+  description      String
+  categoryId       Int
+  basePrice        Float
+  offerPrice       Float
+  stock            Int
+  color            String?
+  variantName      String?
+  variantValues    String?
+  createdAt        DateTime    @default(now())
+  shortDescription String?
+  purchases        Int         @default(0)
+  keywords         String[]
+  CartItem         CartItem[]
+  Image            Image[]
+  OrderItem        OrderItem[]
+  Category         Category    @relation(fields: [categoryId], references: [id])
+
+  @@index([slug], map: "product_slug_index")
+}
+
+model Session {
+  id           String   @id
+  expires      DateTime
+  sessionToken String   @unique
+  userId       String
+  User         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id
+  name          String
+  email         String    @unique
+  gender        String?
+  phone         String?
+  password      String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime
+  lastLogin     DateTime  @default(now())
+  image         String?
+  emailVerified DateTime?
+  Account       Account[]
+  Address       Address[]
+  Cart          Cart?
+  Order         Order[]
+  Session       Session[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
