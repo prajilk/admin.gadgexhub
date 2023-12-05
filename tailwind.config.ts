@@ -86,15 +86,6 @@ module.exports = {
             },
           },
         },
-        mytheme: {
-          colors: {
-            primary: {
-              DEFAULT: "#006FEE",
-              foreground: "#FFFFFF",
-            },
-            focus: "#BEF264",
-          },
-        },
       },
     }),
   ],
