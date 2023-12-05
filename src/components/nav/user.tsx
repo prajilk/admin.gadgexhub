@@ -19,7 +19,7 @@ const User = () => {
       placement="bottom"
       classNames={{
         content: "bg-white dark:bg-dark",
-        base: "before:bg-white before:dark:bg-dark",
+        base: "before:bg-white before:dark:bg-dark before:z-10 before:shadow-none",
       }}
     >
       <PopoverTrigger className="rounded-full bg-zinc-200 py-1 ps-1 dark:bg-zinc-800 sm:pe-4 md:py-1 md:ps-1">

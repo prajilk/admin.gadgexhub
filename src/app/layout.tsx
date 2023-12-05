@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import NextUIProvider from "@/providers/nextui-provider";
+import { headers } from "next/headers";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Admin GadgeXhub",
@@ -13,9 +17,10 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className="font-poppins bg-gray-100 dark:bg-[#020817]">
+    <html lang="en" suppressHydrationWarning={true}>
+      <body className="bg-gray-100 font-poppins dark:bg-[#020817]">
         <NextUIProvider>{children}</NextUIProvider>
+        <Toaster richColors position="top-right" />
       </body>
     </html>
   );

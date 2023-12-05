@@ -2,16 +2,20 @@ import { useEffect, useState } from "react";
 import { useRef } from "react";
 import SubMenu from "./sub-menu";
 import { motion } from "framer-motion";
-
-// * React icons
-import { ChevronLeft, LayoutDashboard, Users, Menu, Boxes } from "lucide-react";
+import {
+  ChevronLeft,
+  LayoutDashboard,
+  Users,
+  Menu,
+  BookText,
+} from "lucide-react";
 import { useMediaQuery } from "react-responsive";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 
 const Sidebar = () => {
-  let isTabletMid = useMediaQuery({ query: "(max-width: 768px)" });
+  let isTabletMid = useMediaQuery({ query: "(max-width: 912px)" });
   const [open, setOpen] = useState(isTabletMid ? false : true);
   const sidebarRef = useRef(null);
   const pathname = usePathname();
@@ -78,8 +82,14 @@ const Sidebar = () => {
             bg-white dark:bg-dark
          lg:relative"
       >
-        <div className="mx-3.5 flex items-center gap-3.5 py-3 font-medium">
-          <Image src="/icon.png" alt="icon" width={45} height={50} />
+        <div className="mx-3.5 flex items-center gap-4 py-3 font-medium">
+          <Image
+            src="/icon.png"
+            className="flex-shrink-0"
+            alt="icon"
+            width={40}
+            height={45}
+          />
           <span className="whitespace-pre text-xl">GadgeXhub</span>
         </div>
 
@@ -91,14 +101,23 @@ const Sidebar = () => {
                 className={`${
                   pathname === "/dashboard" &&
                   "bg-zinc-200 text-primary dark:bg-zinc-800"
-                } flex cursor-default items-center gap-7 rounded-md p-2.5 font-medium duration-300 md:cursor-pointer`}
+                } flex cursor-default items-center gap-5 rounded-md p-2.5 font-medium duration-300 md:cursor-pointer`}
               >
                 <LayoutDashboard size={23} className="min-w-max" />
                 Dashboard
               </Link>
             </li>
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col">
               <SubMenu
+                isOpen={open}
+                data={{
+                  name: "Catalog",
+                  icon: BookText,
+                  menus: ["Products", "Categories"],
+                }}
+              />
+              <SubMenu
+                isOpen={open}
                 data={{
                   name: "Customer details",
                   icon: Users,
@@ -106,7 +125,7 @@ const Sidebar = () => {
                 }}
               />
             </div>
-            <li>
+            {/* <li>
               <Link
                 href="/dashboard"
                 className={`${
@@ -117,7 +136,7 @@ const Sidebar = () => {
                 <Boxes size={23} className="min-w-max" />
                 Products
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
         <motion.div

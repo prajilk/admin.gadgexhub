@@ -14,4 +14,11 @@ function formatCurrency(amount: number) {
   return price.toString().split(".")[0];
 }
 
-export { formatCurrency };
+function textTruncate(text: string, length: number) {
+  if (text.length > length) {
+    return text.slice(0, length) + "...";
+  }
+  return text;
+}
+
+export { formatCurrency, textTruncate };

@@ -19,7 +19,9 @@ const Nav = ({ children }: { children: ReactNode }) => {
             <User />
           </div>
         </nav>
-        <main className="mx-auto max-w-7xl flex-1 py-4">{children}</main>
+        <main className="mx-auto min-h-[calc(100vh_-_90px)] max-w-7xl flex-1 py-4">
+          {children}
+        </main>
       </div>
     </div>
   );

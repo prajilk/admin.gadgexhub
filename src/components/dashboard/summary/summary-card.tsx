@@ -1,16 +1,10 @@
 import { Button, Card, CardBody, Link as NextUILink } from "@nextui-org/react";
-import { LucideIcon, MoveRight } from "lucide-react";
+import { MoveRight } from "lucide-react";
 import Link from "next/link";
+import SummaryValue from "./summary-value";
+import { SummaryCardProps } from "@/lib/types/types";
 
-function SummaryCard(props: {
-  icon: LucideIcon;
-  title: string;
-  value: string;
-  url: string;
-  color: string;
-  bgcolor: string;
-  percentage?: { increased: boolean; value: string | number };
-}) {
+function SummaryCard(props: SummaryCardProps) {
   return (
     <Card className="bg-white shadow-md dark:bg-dark">
       <CardBody className="flex-row gap-3">
@@ -18,8 +12,15 @@ function SummaryCard(props: {
           <props.icon />
         </Button>
         <div className="w-full">
-          <span className="text-xs text-muted-foreground">{props.title}</span>
-          <h3 className="text-2xl font-medium">{props.value}</h3>
+          <span className="text-xs capitalize text-muted-foreground">
+            {props.title}
+          </span>
+          <h3 className="text-2xl font-medium">
+            <SummaryValue
+              value={Number(props.value)}
+              isCurrency={props.title === "Total Revenue"}
+            />
+          </h3>
           <div className="mt-3 flex items-center justify-between">
             <NextUILink
               size="sm"
