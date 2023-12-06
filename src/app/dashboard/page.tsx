@@ -13,6 +13,9 @@ import TopSellingProducts from "@/components/dashboard/tables/top-selling-produc
 import TopStateBySales from "@/components/dashboard/top-state-by-sales";
 import RecentActivities from "@/components/dashboard/recent-activities";
 import NewCustomerRegistrations from "@/components/dashboard/customer-registrations/new-customer-registrations";
+import TopSources from "@/components/dashboard/top-sources";
+import TopPages from "@/components/dashboard/top-pages";
+import DeviceOrigin from "@/components/dashboard/device-origin/device-origin";
 
 export default async function Home() {
   return (
@@ -31,7 +34,11 @@ export default async function Home() {
         <TopSellingProducts />
         <div className="my-10 grid grid-cols-1 px-3 @3xl:grid-cols-3 md:gap-3">
           <NewCustomerRegistrations data={newCustomerRegisters} />
-          <div className="rounded-2xl bg-dark"></div>
+          <DeviceOrigin />
+        </div>
+        <div className="my-10 grid grid-cols-1 px-3 @3xl:grid-cols-2 md:gap-3">
+          <TopSources />
+          <TopPages />
         </div>
         <div className="my-10 grid grid-cols-1 px-3 @3xl:grid-cols-2 md:gap-3">
           <TopStateBySales />

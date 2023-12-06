@@ -1,2 +1,3 @@
 - [Test Localhost](http://localhost:3001/dashboard) - learn about Next.js features and API.
 - [Test Ngrok](https://charming-slug-deadly.ngrok-free.app/dashboard) - an interactive Next.js tutorial.
+- [Test Gadgexhuv.vercel.app](https://gadgexhub.vercel.app) - an interactive Next.js tutorial.

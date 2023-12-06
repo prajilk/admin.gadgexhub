@@ -1,22 +1,27 @@
-import { Button, Card, CardBody } from "@nextui-org/react";
-import { ChevronRight } from "lucide-react";
+import { Avatar, Button, Card, CardBody } from "@nextui-org/react";
+import { ChevronRight, Link } from "lucide-react";
 
-const topStateData = [
-  { state: "Kerala", value: "1221", progressPercentage: 85 },
-  { state: "Karnataka", value: "1017", progressPercentage: 75 },
-  { state: "Tamil Nadu", value: "798", progressPercentage: 50 },
-  { state: "Telangana", value: "567", progressPercentage: 30 },
-  { state: "Goa", value: "436", progressPercentage: 21 },
-  { state: "Maharashtra", value: "129", progressPercentage: 15 },
+const topPages = [
+  { page: "/", value: "2117", progressPercentage: 96 },
+  { page: "/store", value: "697", progressPercentage: 32 },
+  {
+    page: "/store/c/audio-video/earphones",
+    value: "789",
+    progressPercentage: 36,
+  },
+  { page: "/store/oneplus-buds-z2", value: "586", progressPercentage: 27 },
+  { page: "/store/zeb-pods-1", value: "516", progressPercentage: 23 },
+  { page: "/authentication", value: "163", progressPercentage: 7 },
+  { page: "/account", value: "121", progressPercentage: 6 },
 ];
 
-const TopStateBySales = () => {
+const TopPages = () => {
   return (
-    <Card className="shadow-md">
+    <Card className="mt-5 shadow-md md:mt-0">
       <CardBody className="bg-white dark:bg-dark">
         <div className="flex items-center justify-between">
           <h1 className="text-lg font-medium text-black dark:text-white">
-            Top States By Sales
+            Top Pages
           </h1>
           <Button
             variant="flat"
@@ -28,8 +33,8 @@ const TopStateBySales = () => {
           </Button>
         </div>
         <ul className="mt-4 space-y-3 ps-1">
-          {topStateData.map((data, i) => (
-            <StateList {...data} key={i} />
+          {topPages.map((data, i) => (
+            <SourceList {...data} key={i} />
           ))}
         </ul>
       </CardBody>
@@ -37,14 +42,14 @@ const TopStateBySales = () => {
   );
 };
 
-export default TopStateBySales;
+export default TopPages;
 
-function StateList({
-  state,
+function SourceList({
+  page,
   progressPercentage,
   value,
 }: {
-  state: string;
+  page: string;
   value: string;
   progressPercentage: string | number;
 }) {
@@ -55,7 +60,7 @@ function StateList({
           className="absolute left-0 h-full rounded-md bg-primary/30"
           style={{ width: `${progressPercentage}%` }}
         ></div>
-        <span className="z-10 text-black dark:text-white">{state}</span>
+        <span className="z-10 text-black dark:text-white">{page}</span>
         <span>{value}</span>
       </li>
     </>

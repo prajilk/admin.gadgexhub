@@ -21,8 +21,8 @@ const NewCustomerRegistrations = ({
   const [graphData, setGraphData] = useState(data.yearlyData);
   const [activeFilter, setActiveFilter] = useState("year");
   return (
-    <Card className="col-span-2 mx-3">
-      <CardBody>
+    <Card className="col-span-2 shadow-md">
+      <CardBody className="bg-white dark:bg-dark">
         <div className="mb-10 grid grid-cols-1 items-center space-y-2 @sm:grid-cols-2">
           <h1 className="mx-2 mt-2 text-lg font-medium">
             New Customer Registrations
