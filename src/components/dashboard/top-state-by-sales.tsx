@@ -55,12 +55,12 @@ function StateList({
 }) {
   return (
     <>
-      <li className="relative flex items-center justify-between rounded-md border bg-primary/20 px-3 py-2 text-sm">
+      <li className="relative flex items-center justify-between rounded-md border px-3 py-2 text-sm">
         <div
-          className="absolute left-0 h-full rounded-md bg-primary/70"
+          className="absolute left-0 h-full rounded-md bg-primary/30"
           style={{ width: `${progressPercentage}%` }}
         ></div>
-        <span className="z-10 text-white">{state}</span>
+        <span className="z-10 text-black dark:text-white">{state}</span>
         <span>{value}</span>
       </li>
     </>

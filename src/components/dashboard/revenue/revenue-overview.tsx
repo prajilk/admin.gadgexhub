@@ -23,7 +23,7 @@ const RevenueOverview = ({
 
   return (
     <div className="col-span-3 rounded-2xl bg-white p-3 shadow-md @container dark:bg-dark">
-      <div className="mb-5 grid grid-cols-1 items-center space-y-2 @sm:grid-cols-2">
+      <div className="mb-10 grid grid-cols-1 items-center space-y-2 @sm:grid-cols-2">
         <h1 className="mx-2 mt-2 text-lg font-medium">Revenue Overview</h1>
         <div className="@sm:justify-self-end">
           <FilterButton

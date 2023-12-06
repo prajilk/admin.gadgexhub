@@ -12,7 +12,7 @@ const recentActivities = [
 
 const RecentActivities = () => {
   return (
-    <Card className="shadow-md">
+    <Card className="mt-5 shadow-md md:mt-0">
       <CardBody className="bg-white dark:bg-dark">
         <h1 className="text-lg font-medium text-black dark:text-white">
           Recent Activities
@@ -43,12 +43,12 @@ function ActivitiesList({ data }: { data: string[] }) {
         <div
           className={`relative flex items-start gap-5 ${
             data.indexOf(item) !== data.length - 1 &&
-            "before:absolute before:left-2 before:h-full before:w-0.5 before:border-l before:border-dashed before:border-gray-500"
+            "before:absolute before:left-2 before:h-full before:w-0.5 before:border-l before:border-dashed before:border-gray-300 dark:before:border-gray-500"
           }`}
           key={i}
         >
           <div
-            className="relative h-4 w-4 rounded-full"
+            className="relative h-4 w-4 flex-shrink-0 rounded-full"
             style={{ backgroundColor: `rgb(${colors[i]} / 0.4)` }}
           >
             <div

@@ -199,6 +199,140 @@ const revenueData = {
   ],
 };
 
+const newCustomerRegisters = {
+  weeklyData: [
+    {
+      name: "Sat",
+      uv: 100,
+      amt: 2400,
+    },
+    {
+      name: "Sun",
+      uv: 200,
+      amt: 2210,
+    },
+    {
+      name: "Mon",
+      uv: 150,
+      amt: 2290,
+    },
+    {
+      name: "Tue",
+      uv: 300,
+      amt: 2000,
+    },
+    {
+      name: "Wed",
+      uv: 200,
+      amt: 2181,
+    },
+    {
+      name: "Thu",
+      uv: 400,
+      amt: 2500,
+    },
+    {
+      name: "Fri",
+      uv: 219,
+      amt: 2100,
+    },
+  ],
+  monthlyData: [
+    {
+      name: "1-5",
+      uv: 1000,
+      amt: 2400,
+    },
+    {
+      name: "6-10",
+      uv: 2000,
+      amt: 2210,
+    },
+    {
+      name: "11-15",
+      uv: 1500,
+      amt: 2290,
+    },
+    {
+      name: "16-20",
+      uv: 3000,
+      amt: 2000,
+    },
+    {
+      name: "21-25",
+      uv: 2000,
+      amt: 2181,
+    },
+    {
+      name: "26-30",
+      uv: 4000,
+      amt: 2500,
+    },
+  ],
+  yearlyData: [
+    {
+      name: "Jan",
+      uv: 10000,
+      amt: 2400,
+    },
+    {
+      name: "Feb",
+      uv: 20000,
+      amt: 2210,
+    },
+    {
+      name: "Mar",
+      uv: 15000,
+      amt: 2290,
+    },
+    {
+      name: "Apr",
+      uv: 30000,
+      amt: 2000,
+    },
+    {
+      name: "May",
+      uv: 20000,
+      amt: 2181,
+    },
+    {
+      name: "Jun",
+      uv: 40000,
+      amt: 2500,
+    },
+    {
+      name: "July",
+      uv: 21900,
+      amt: 2100,
+    },
+    {
+      name: "Aug",
+      uv: 30900,
+      amt: 2100,
+    },
+    {
+      name: "Sep",
+      uv: 10000,
+      amt: 2100,
+    },
+    {
+      name: "Oct",
+      uv: 15500,
+      amt: 2100,
+    },
+    {
+      name: "Nov",
+      uv: 20000,
+      amt: 2100,
+    },
+    {
+      name: "Dec",
+      uv: 30000,
+      amt: 2100,
+    },
+  ],
+};
+
 const recentOrderColumns = [
   { name: "ORDER ID", uid: "oid" },
   { name: "USER", uid: "user" },
@@ -340,4 +474,5 @@ export {
   recentOrders,
   topSellingProducts,
   topSellingProductsColumns,
+  newCustomerRegisters,
 };

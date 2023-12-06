@@ -13,8 +13,10 @@ const TopCustomers = ({ data }: { data: TopCustomersProps[] }) => {
   return (
     <div className="col-span-2 mt-5 rounded-2xl bg-white p-3 ps-4 shadow-md dark:bg-dark md:mt-0">
       <h1 className="mt-2 text-lg font-medium">Top Customers</h1>
-      <p className="text-xs">Top Customers by Purchase Volume.</p>
-      <div className="mt-4 space-y-3">
+      <p className="text-xs dark:text-zinc-400">
+        Top Customers by Purchase Volume.
+      </p>
+      <div className="mt-4 space-y-5">
         {data.map((sale, i) => (
           <div className="flex items-center justify-between" key={i}>
             <User

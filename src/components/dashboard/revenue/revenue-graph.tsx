@@ -43,9 +43,10 @@ const RevenueGraph = ({ data }: { data: any[] }) => {
             fontSize={12}
             tickLine={false}
             axisLine={false}
-            tickFormatter={(value) => `$${value}`}
+            fontFamily="Roboto"
+            tickFormatter={(value) => `₹ ${value}`}
           />
-          {/* adfa1d */}
+
           <Bar dataKey="total" fill="#adfa1d" radius={[4, 4, 0, 0]} />
           <Tooltip content={<CustomTooltip />} cursor={false} />
         </BarChart>
