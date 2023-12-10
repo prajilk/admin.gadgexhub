@@ -10,7 +10,11 @@ const SubMenu = ({
   data,
   isOpen,
 }: {
-  data: { name: string; icon: LucideIcon; menus: string[] };
+  data: {
+    name: string;
+    icon: LucideIcon;
+    menus: { title: string; url: string }[];
+  };
   isOpen: boolean;
 }) => {
   const pathname = usePathname();
@@ -21,10 +25,10 @@ const SubMenu = ({
         placement="right"
         showArrow={true}
         classNames={{
-          base: "before:bg-white before:dark:bg-zinc-800 before:z-10 before:shadow-none",
+          base: "before:dark:bg-zinc-800 before:z-10 before:shadow-none",
         }}
       >
-        <PopoverTrigger className="focus:text-black focus:dark:text-white">
+        <PopoverTrigger className="">
           <button
             className={`flex cursor-default items-center justify-start rounded-md bg-transparent p-3 font-medium outline-none duration-300 md:cursor-pointer ${
               pathname.includes(data.name) && "text-primary"
@@ -41,14 +45,14 @@ const SubMenu = ({
             />
           </button>
         </PopoverTrigger>
-        <PopoverContent hidden={isOpen} className="bg-white dark:bg-zinc-800">
+        <PopoverContent hidden={isOpen} className="dark:bg-zinc-800">
           <ul className="min-w-[200px] space-y-1 py-1">
             {data.menus.map((menu, i) => (
               <li
                 className="cursor-pointer rounded-md py-1 ps-2 hover:bg-zinc-100 dark:hover:bg-zinc-700"
                 key={i}
               >
-                {menu}
+                <Link href={`/dashboard${menu.url}`}>{menu.title}</Link>
               </li>
             ))}
           </ul>
@@ -67,12 +71,12 @@ const SubMenu = ({
         className="flex h-0 flex-col overflow-hidden pl-14 text-sm font-normal"
       >
         {data.menus?.map((menu) => (
-          <li key={menu}>
+          <li key={menu.title}>
             <Link
-              href="/"
+              href={`/dashboard${menu.url}`}
               className="flex cursor-default items-center gap-7 rounded-md !bg-transparent p-2 font-medium capitalize text-zinc-500 duration-300 hover:text-primary dark:text-zinc-400 md:cursor-pointer"
             >
-              {menu}
+              {menu.title}
             </Link>
           </li>
         ))}

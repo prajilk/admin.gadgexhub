@@ -12,7 +12,7 @@ import {
 import { useForm } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
-import { ZodAuthSchema } from "@/lib/zod-schemas/auth-schema";
+import { ZodAuthSchema } from "@/lib/zod-schemas/schema";
 import { motion as m } from "framer-motion";
 import { toast } from "sonner";
 import { signIn } from "next-auth/react";
@@ -86,6 +86,7 @@ function AuthForm() {
                   placeholder="Password"
                   radius="sm"
                   size="sm"
+                  autoComplete="no"
                   endContent={
                     isPassword ? (
                       <Eye

@@ -22,9 +22,6 @@ const TopCustomers = ({ data }: { data: TopCustomersProps[] }) => {
             <User
               name={sale.name}
               description={`${sale.purchases} Purchases`}
-              classNames={{
-                description: "dark:text-zinc-400/80",
-              }}
               avatarProps={{
                 name: "",
                 showFallback: true,
@@ -35,7 +32,7 @@ const TopCustomers = ({ data }: { data: TopCustomersProps[] }) => {
               <h1 className="text-sm font-medium">
                 + {formatCurrency(sale.amountSpent)}
               </h1>
-              <span className="text-xs text-zinc-500 dark:dark:text-zinc-400/80">
+              <span className="text-xs text-zinc-500 dark:text-zinc-400/80">
                 Last: {sale.lastPurchase}
               </span>
             </div>

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import NextUIProvider from "@/providers/nextui-provider";
-import { headers } from "next/headers";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import { Toaster } from "sonner";
+import AuthProvider from "@/providers/auth-provider";
+import QueryProvider from "@/providers/query-provider";
+import AutoSignOutProvider from "@/providers/auto-signout-provider";
 
 export const metadata: Metadata = {
   title: "Admin GadgeXhub",
@@ -19,7 +19,13 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <body className="bg-gray-100 font-poppins dark:bg-[#020817]">
-        <NextUIProvider>{children}</NextUIProvider>
+        <AuthProvider>
+          <AutoSignOutProvider>
+            <QueryProvider>
+              <NextUIProvider>{children}</NextUIProvider>
+            </QueryProvider>
+          </AutoSignOutProvider>
+        </AuthProvider>
         <Toaster richColors position="top-right" />
       </body>
     </html>

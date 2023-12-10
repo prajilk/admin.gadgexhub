@@ -74,11 +74,19 @@ module.exports = {
     },
   },
   plugins: [
+    require("tailwindcss-animate"),
     containerPlugin,
     nextui({
-      defaultTheme: "dark",
       themes: {
         dark: {
+          colors: {
+            primary: {
+              DEFAULT: "#463acb",
+              foreground: "#FFFFFF",
+            },
+          },
+        },
+        light: {
           colors: {
             primary: {
               DEFAULT: "#463acb",

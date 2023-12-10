@@ -1,12 +1,12 @@
 import { Button, Card, CardBody, Link as NextUILink } from "@nextui-org/react";
 import { MoveRight } from "lucide-react";
 import Link from "next/link";
-import SummaryValue from "./summary-value";
 import { SummaryCardProps } from "@/lib/types/types";
+import CountUpValue from "@/components/countup-value";
 
 function SummaryCard(props: SummaryCardProps) {
   return (
-    <Card className="bg-white shadow-md dark:bg-dark">
+    <Card>
       <CardBody className="flex-row gap-3">
         <Button isIconOnly radius="full" className={`mt-1 ${props.bgcolor}`}>
           <props.icon />
@@ -16,7 +16,7 @@ function SummaryCard(props: SummaryCardProps) {
             {props.title}
           </span>
           <h3 className="text-2xl font-medium">
-            <SummaryValue
+            <CountUpValue
               value={Number(props.value)}
               isCurrency={props.title === "Total Revenue"}
             />

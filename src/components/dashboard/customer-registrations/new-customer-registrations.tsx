@@ -22,7 +22,7 @@ const NewCustomerRegistrations = ({
   const [activeFilter, setActiveFilter] = useState("year");
   return (
     <Card className="col-span-2 shadow-md">
-      <CardBody className="bg-white dark:bg-dark">
+      <CardBody>
         <div className="mb-10 grid grid-cols-1 items-center space-y-2 @sm:grid-cols-2">
           <h1 className="mx-2 mt-2 text-lg font-medium">
             New Customer Registrations

@@ -1,3 +1,4 @@
+import { authOptions } from "@/lib/auth";
 import {
   Popover,
   PopoverTrigger,
@@ -9,24 +10,28 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
+  Image,
 } from "@nextui-org/react";
 import { Settings, LogOut } from "lucide-react";
+import { Session, getServerSession } from "next-auth";
+import Link from "next/link";
 
-const User = () => {
+const User = async () => {
+  const session = await getServerSession(authOptions);
+
   return (
     <Popover
       showArrow
       placement="bottom"
       classNames={{
-        content: "bg-white dark:bg-dark",
-        base: "before:bg-white before:dark:bg-dark before:z-10 before:shadow-none",
+        base: "before:z-10 before:shadow-none",
       }}
     >
-      <PopoverTrigger className="rounded-full bg-zinc-200 py-1 ps-1 dark:bg-zinc-800 sm:pe-4 md:py-1 md:ps-1">
+      <PopoverTrigger className="rounded-full bg-zinc-100 py-1 ps-1 dark:bg-zinc-800 sm:pe-4 md:py-1 md:ps-1">
         <NextUIUser
           as="button"
-          name="Prajil K"
-          description="Super Admin"
+          name={session?.user.name}
+          description={session?.user.role}
           className="gap-1 transition-transform sm:gap-2"
           classNames={{
             description:
@@ -37,12 +42,14 @@ const User = () => {
             name: "",
             className: "w-8 h-8 md:w-10 md:h-10",
             showFallback: true,
-            src: "https://i.pravatar.cc/150?u=a04258114e29026702",
+            classNames: { fallback: "w-full h-full" },
+            fallback: <Image src="/avatar.jpg" alt="avatar" radius="full" />,
+            src: session?.user.image || "",
           }}
         />
       </PopoverTrigger>
       <PopoverContent className="p-1">
-        <UserCard />
+        <UserCard session={session} />
       </PopoverContent>
     </Popover>
   );
@@ -50,7 +57,7 @@ const User = () => {
 
 export default User;
 
-const UserCard = () => {
+const UserCard = ({ session }: { session: Session | null }) => {
   return (
     <Card
       shadow="none"
@@ -62,26 +69,26 @@ const UserCard = () => {
             isBordered
             radius="full"
             showFallback
+            classNames={{
+              fallback: "w-full h-full",
+            }}
+            fallback={<Image src="/avatar.jpg" alt="avatar" radius="full" />}
             size="md"
-            className="ring-zinc-300 dark:ring-default"
-            src="https://i.pravatar.cc/150?u=a04258114e29026702"
+            src={session?.user.image || ""}
           />
           <div className="flex flex-col items-start justify-center">
-            <h4 className="text-small font-semibold leading-none dark:text-default-600">
-              Prajil K
+            <h4 className="text-small font-semibold leading-none">
+              {session?.user.name}
             </h4>
             <h5 className="text-xs font-medium tracking-tight text-success">
-              Super Admin
+              {session?.user.role}
             </h5>
           </div>
         </div>
-        <Button color="primary" radius="full" size="sm">
-          Profile
-        </Button>
       </CardHeader>
       <CardBody className="px-3 py-0">
         <p className="pl-px text-small dark:text-default-500">
-          Welcome back Prajil K
+          Welcome back {session?.user.name}
           <span aria-label="confetti" role="img">
             🎉
           </span>
@@ -89,14 +96,18 @@ const UserCard = () => {
       </CardBody>
       <CardFooter className="flex-col gap-3">
         <Button
+          as={Link}
+          href="/dashboard/settings"
           startContent={<Settings size={15} />}
           size="sm"
           variant="flat"
-          className="w-full justify-start bg-zinc-200 text-dark dark:bg-zinc-800 dark:text-zinc-200"
+          className="w-full justify-start"
         >
           Settings
         </Button>
         <Button
+          as={Link}
+          href="/signout"
           startContent={<LogOut size={15} />}
           size="sm"
           variant="flat"

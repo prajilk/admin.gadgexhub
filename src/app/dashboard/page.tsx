@@ -16,6 +16,7 @@ import NewCustomerRegistrations from "@/components/dashboard/customer-registrati
 import TopSources from "@/components/dashboard/top-sources";
 import TopPages from "@/components/dashboard/top-pages";
 import DeviceOrigin from "@/components/dashboard/device-origin/device-origin";
+import VisitDetails from "@/components/dashboard/visit-details/visit-details";
 
 export default async function Home() {
   return (
@@ -26,6 +27,7 @@ export default async function Home() {
             <SummaryCard {...cardDetail} key={i} />
           ))}
         </div>
+        <VisitDetails />
         <div className="my-10 grid grid-cols-1 px-3 @3xl:grid-cols-5 md:gap-3">
           <RevenueOverview data={revenueData} />
           <TopCustomers data={topCustomersData} />

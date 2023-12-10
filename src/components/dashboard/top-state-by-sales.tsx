@@ -13,15 +13,14 @@ const topStateData = [
 const TopStateBySales = () => {
   return (
     <Card className="shadow-md">
-      <CardBody className="bg-white dark:bg-dark">
+      <CardBody>
         <div className="flex items-center justify-between">
-          <h1 className="text-lg font-medium text-black dark:text-white">
-            Top States By Sales
-          </h1>
+          <h1 className="text-lg font-medium">Top States By Sales</h1>
           <Button
             variant="flat"
             size="sm"
-            className="bg-indigo-100 text-primary dark:bg-zinc-800 dark:text-white"
+            color="primary"
+            className="dark:bg-zinc-800 dark:text-white"
             endContent={<ChevronRight size={15} />}
           >
             View All
@@ -55,7 +54,7 @@ function StateList({
           className="absolute left-0 h-full rounded-md bg-primary/30"
           style={{ width: `${progressPercentage}%` }}
         ></div>
-        <span className="z-10 text-black dark:text-white">{state}</span>
+        <span className="z-10">{state}</span>
         <span>{value}</span>
       </li>
     </>

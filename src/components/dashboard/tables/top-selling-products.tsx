@@ -12,11 +12,14 @@ import {
   Tooltip,
   Chip,
 } from "@nextui-org/react";
-import { topSellingProducts, topSellingProductsColumns } from "@/lib/data";
 import { formatCurrency, textTruncate } from "@/lib/utils";
 import { useCallback } from "react";
 import { ChevronRight, Eye, Trash2 } from "lucide-react";
 import { toast } from "sonner";
+import {
+  topSellingProducts,
+  topSellingProductsColumns,
+} from "@/lib/table-data/top-selling";
 
 type Product = (typeof topSellingProducts)[0];
 
@@ -27,11 +30,7 @@ export default function TopSellingProducts() {
     switch (columnKey) {
       case "pid":
         return (
-          <Tooltip
-            content="Copy PID"
-            placement="top"
-            className="bg-white dark:bg-zinc-700"
-          >
+          <Tooltip content="Copy PID" placement="top">
             <span
               className="cursor-pointer"
               onClick={() => {
@@ -87,10 +86,7 @@ export default function TopSellingProducts() {
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
-            <Tooltip
-              content="View Details"
-              className="bg-white dark:bg-zinc-700"
-            >
+            <Tooltip content="View Details">
               <span className="cursor-pointer text-lg text-default-400 active:opacity-50">
                 <Eye />
               </span>
@@ -110,13 +106,12 @@ export default function TopSellingProducts() {
   return (
     <div className="mx-3 rounded-2xl bg-white px-4 pt-4 shadow-md dark:bg-dark">
       <div className="flex items-center justify-between">
-        <h1 className="text-lg font-medium text-black dark:text-white">
-          Top Selling Products
-        </h1>
+        <h1 className="text-lg font-medium">Top Selling Products</h1>
         <Button
           variant="flat"
           size="sm"
-          className="bg-indigo-100 text-primary dark:bg-zinc-800 dark:text-white"
+          color="primary"
+          className="dark:bg-zinc-800 dark:text-white"
           endContent={<ChevronRight size={15} />}
         >
           View All
@@ -125,8 +120,7 @@ export default function TopSellingProducts() {
       <Table
         aria-label="Top Selling Products"
         classNames={{
-          wrapper: "px-0 shadow-none bg-white dark:bg-dark",
-          th: "bg-zinc-100 text-dark dark:bg-zinc-800 dark:text-zinc-200",
+          wrapper: "px-0 shadow-none",
         }}
       >
         <TableHeader columns={topSellingProductsColumns}>

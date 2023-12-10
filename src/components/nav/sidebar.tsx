@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { useRef } from "react";
 import SubMenu from "./sub-menu";
@@ -69,7 +71,7 @@ const Sidebar = () => {
     <div>
       <div
         onClick={() => setOpen(false)}
-        className={`fixed inset-0 z-[998] max-h-screen bg-black/50 lg:hidden ${
+        className={`fixed inset-0 z-[48] max-h-screen bg-black/50 lg:hidden ${
           open ? "block" : "hidden"
         } `}
       ></div>
@@ -78,9 +80,7 @@ const Sidebar = () => {
         variants={Nav_animation}
         initial={{ x: isTabletMid ? -250 : 0 }}
         animate={open ? "open" : "closed"}
-        className="text-gray fixed z-[999] h-screen w-[16rem] max-w-[16rem] overflow-hidden 
-            bg-white dark:bg-dark
-         lg:relative"
+        className="text-gray fixed z-[49] h-screen w-[16rem] max-w-[16rem] overflow-hidden bg-white dark:bg-dark lg:relative"
       >
         <div className="mx-3.5 flex items-center gap-4 py-3 font-medium">
           <Image
@@ -89,6 +89,7 @@ const Sidebar = () => {
             alt="icon"
             width={40}
             height={45}
+            style={{ width: "auto", height: "auto" }}
           />
           <span className="whitespace-pre text-xl">GadgeXhub</span>
         </div>
@@ -113,7 +114,10 @@ const Sidebar = () => {
                 data={{
                   name: "Catalog",
                   icon: BookText,
-                  menus: ["Products", "Categories"],
+                  menus: [
+                    { title: "Products", url: "/products" },
+                    { title: "Categories", url: "/products/categories" },
+                  ],
                 }}
               />
               <SubMenu
@@ -121,7 +125,10 @@ const Sidebar = () => {
                 data={{
                   name: "Customer details",
                   icon: Users,
-                  menus: ["Customers", "Addresses"],
+                  menus: [
+                    { title: "Customers", url: "/customers" },
+                    { title: "Addresses", url: "/customers/address" },
+                  ],
                 }}
               />
             </div>

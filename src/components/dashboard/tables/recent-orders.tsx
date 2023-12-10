@@ -11,14 +11,17 @@ import {
   Tooltip,
   ChipProps,
   Button,
-  Select,
   SelectItem,
+  Select,
 } from "@nextui-org/react";
 import { Trash2, Eye, ChevronRight } from "lucide-react";
-import { recentOrderColumns, recentOrders } from "@/lib/data";
 import { formatCurrency } from "@/lib/utils";
 import Link from "next/link";
 import { useCallback } from "react";
+import {
+  recentOrderColumns,
+  recentOrders,
+} from "@/lib/table-data/recent-orders";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   delivered: "success",
@@ -73,11 +76,8 @@ const RecentOrders = () => {
             className="max-w-xs"
             defaultSelectedKeys={[order.status]}
             classNames={{
-              trigger:
-                "bg-zinc-100 dark:bg-zinc-800 h-fit min-h-fit p-2 data-[hover=true]:bg-zinc-200 data-[hover=true]:dark:bg-zinc-700",
-              value:
-                "text-black text-xs dark:text-zinc-200 dark:group-data-[has-value=true]:text-zinc-200 group-data-[has-value=true]:text-black",
-              popoverContent: "bg-white dark:bg-zinc-800",
+              trigger: "h-fit min-h-fit p-2",
+              value: "text-xs",
             }}
             aria-label="Update status"
             size="sm"
@@ -99,10 +99,7 @@ const RecentOrders = () => {
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
-            <Tooltip
-              content="View Details"
-              className="bg-white dark:bg-zinc-700"
-            >
+            <Tooltip content="View Details">
               <span className="cursor-pointer text-lg text-default-400 active:opacity-50">
                 <Eye />
               </span>
@@ -122,13 +119,12 @@ const RecentOrders = () => {
   return (
     <div className="mx-3 my-10 rounded-2xl bg-white px-4 pt-4 shadow-md dark:bg-dark">
       <div className="flex items-center justify-between">
-        <h1 className="text-lg font-medium text-black dark:text-white">
-          Recent Orders
-        </h1>
+        <h1 className="text-lg font-medium">Recent Orders</h1>
         <Button
           variant="flat"
           size="sm"
-          className="bg-indigo-100 text-primary dark:bg-zinc-800 dark:text-white"
+          color="primary"
+          className="dark:bg-zinc-800 dark:text-white"
           endContent={<ChevronRight size={15} />}
         >
           View All
@@ -137,8 +133,7 @@ const RecentOrders = () => {
       <Table
         aria-label="Recent Orders table"
         classNames={{
-          wrapper: "px-0 shadow-none bg-white dark:bg-dark",
-          th: "bg-zinc-100 text-dark dark:bg-zinc-800 dark:text-zinc-200",
+          wrapper: "px-0 shadow-none",
         }}
       >
         <TableHeader columns={recentOrderColumns}>

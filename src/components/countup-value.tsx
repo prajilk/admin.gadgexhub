@@ -2,7 +2,7 @@
 
 import CountUp from "react-countup";
 
-const SummaryValue = ({
+const CountUpValue = ({
   value,
   isCurrency = false,
 }: {
@@ -12,4 +12,4 @@ const SummaryValue = ({
   return <CountUp end={value} prefix={isCurrency ? "&#8377; " : ""} />;
 };
 
-export default SummaryValue;
+export default CountUpValue;

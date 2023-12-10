@@ -9,7 +9,10 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
-    maxAge: 24 * 60 * 60,
+    maxAge: 30 * 60,
+  },
+  jwt: {
+    maxAge: 1 * 60 * 60,
   },
   pages: {
     signIn: "/",
@@ -49,6 +52,7 @@ export const authOptions: NextAuthOptions = {
           name: admin.name,
           email: admin.email,
           role: admin.role,
+          isAuthenticated: true,
         };
       },
     }),
@@ -68,12 +72,41 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
+      try {
+        if (token.sub) {
+          const user = await db.admin.findUnique({
+            where: { id: token.sub },
+          });
+          if (!user) {
+            return {
+              ...session,
+              user: {
+                ...session.user,
+                id: token.sub,
+                role: token.role,
+                isAuthenticated: false,
+              },
+            };
+          }
+        }
+      } catch (error) {
+        return {
+          ...session,
+          user: {
+            ...session.user,
+            id: token.sub,
+            role: token.role,
+            isAuthenticated: false,
+          },
+        };
+      }
       return {
         ...session,
         user: {
           ...session.user,
           id: token.sub,
           role: token.role,
+          isAuthenticated: true,
         },
       };
     },
