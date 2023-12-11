@@ -18,7 +18,7 @@ import Image from "next/image";
 
 const Sidebar = () => {
   let isTabletMid = useMediaQuery({ query: "(max-width: 912px)" });
-  const [open, setOpen] = useState(isTabletMid ? false : true);
+  const [open, setOpen] = useState(false);
   const sidebarRef = useRef(null);
   const pathname = usePathname();
 

@@ -21,7 +21,7 @@ const cardDetails = [
   {
     icon: Users,
     title: "Total Customers",
-    url: "/",
+    url: "/dashboard/customers",
     color: "text-[#23B7E5]",
     bgcolor: "bg-[#23B7E5]",
     value: 120333,

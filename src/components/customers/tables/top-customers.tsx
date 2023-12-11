@@ -17,18 +17,18 @@ import {
   Selection,
   SortDescriptor,
 } from "@nextui-org/react";
-import { ChevronDown, MoreVertical, Search } from "lucide-react";
-import { capitalize } from "@/lib/utils";
+import { ChevronDown, Search } from "lucide-react";
+import { capitalize, formatCurrency } from "@/lib/utils";
 import {
-  customersColumns as columns,
-  customersData as users,
+  topCustomersColumns as columns,
+  topCustomersData as users,
 } from "@/lib/table-data/customers";
 
-const INITIAL_VISIBLE_COLUMNS = ["name", "email", "phone", "actions"];
+const INITIAL_VISIBLE_COLUMNS = ["id", "name", "amount", "total_purchases"];
 
 type User = (typeof users)[0];
 
-export default function Customers() {
+export default function TopCustomers() {
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
     new Set([]),
@@ -38,8 +38,8 @@ export default function Customers() {
   );
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
-    column: "created_at",
-    direction: "ascending",
+    column: "amount",
+    direction: "descending",
   });
 
   const [page, setPage] = React.useState(1);
@@ -94,37 +94,23 @@ export default function Customers() {
           <User
             avatarProps={{ radius: "lg", src: user.avatar }}
             name={cellValue}
+            description={user.email}
           >
             {user.email}
           </User>
         );
-      case "email":
+      case "amount":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{cellValue}</p>
+            <p className="text-bold text-small">
+              {formatCurrency(Number(cellValue))}
+            </p>
           </div>
         );
-      case "phone":
+      case "total_purchases":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{cellValue}</p>
-          </div>
-        );
-      case "actions":
-        return (
-          <div className="relative flex items-center justify-end gap-2">
-            <Dropdown>
-              <DropdownTrigger>
-                <Button isIconOnly size="sm" variant="light">
-                  <MoreVertical className="text-default-300" />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu>
-                <DropdownItem>View</DropdownItem>
-                <DropdownItem>Edit</DropdownItem>
-                <DropdownItem>Delete</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
+            <p className="text-bold text-small">{cellValue}</p>
           </div>
         );
       default:
@@ -287,8 +273,6 @@ export default function Customers() {
       }}
       bottomContent={bottomContent}
       bottomContentPlacement="outside"
-      selectedKeys={selectedKeys}
-      selectionMode="multiple"
       sortDescriptor={sortDescriptor}
       topContent={topContent}
       topContentPlacement="outside"

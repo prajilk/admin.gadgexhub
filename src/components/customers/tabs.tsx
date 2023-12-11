@@ -1,19 +1,34 @@
 "use client";
 
-import { Card, CardBody, Tabs as NextUITabs, Tab } from "@nextui-org/react";
+import { Tabs as NextUITabs, Tab } from "@nextui-org/react";
 import { BarChart3, UserMinus, Users } from "lucide-react";
 import Customers from "./tables/customers";
 import GuestUsers from "./tables/guest-users";
+import Analytics from "./analytics";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const Tabs = () => {
+  const searchParams = useSearchParams();
+  const tab = searchParams.get("tab");
+  const [selected, setSelected] = useState(tab || "customers");
+
+  useEffect(() => {
+    setSelected(tab || "customers");
+  }, [tab]);
+
   return (
     <NextUITabs
       variant="underlined"
       aria-label="NextUITabs variants"
       color="primary"
+      selectedKey={selected}
     >
       <Tab
         key="customers"
+        as={Link}
+        href="/dashboard/customers"
         title={
           <div className="flex items-center gap-2">
             <Users size={20} />
@@ -26,6 +41,8 @@ const Tabs = () => {
       </Tab>
       <Tab
         key="guest"
+        as={Link}
+        href="/dashboard/customers?tab=guest"
         title={
           <div className="flex items-center gap-2">
             <UserMinus size={20} />
@@ -38,6 +55,8 @@ const Tabs = () => {
       </Tab>
       <Tab
         key="analytics"
+        href="/dashboard/customers?tab=analytics"
+        as={Link}
         title={
           <div className="flex items-center gap-2">
             <BarChart3 size={20} />
@@ -45,12 +64,7 @@ const Tabs = () => {
           </div>
         }
       >
-        <Card>
-          <CardBody>
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-            officia deserunt mollit anim id est laborum.
-          </CardBody>
-        </Card>
+        <Analytics />
       </Tab>
     </NextUITabs>
   );
