@@ -21,6 +21,7 @@
     "axios": "^1.6.2",
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
+    "cloudinary": "^1.41.1",
     "clsx": "^2.0.0",
     "framer-motion": "^10.16.9",
     "lucide-react": "^0.294.0",
@@ -31,12 +32,14 @@
     "react": "^18",
     "react-countup": "^6.5.0",
     "react-dom": "^18",
+    "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.48.2",
     "react-responsive": "^9.0.2",
     "recharts": "^2.10.3",
     "sonner": "^1.2.4",
     "tailwind-merge": "^2.0.0",
     "tailwindcss-animate": "^1.0.7",
+    "uid": "^2.0.2",
     "zod": "^3.22.4"
   },
   "devDependencies": {

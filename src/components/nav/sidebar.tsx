@@ -127,7 +127,7 @@ const Sidebar = () => {
                   icon: Users,
                   menus: [
                     { title: "Customers", url: "/customers" },
-                    { title: "Addresses", url: "/customers/address" },
+                    { title: "Addresses", url: "/customers/addresses" },
                   ],
                 }}
               />

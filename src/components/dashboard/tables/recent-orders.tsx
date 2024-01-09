@@ -14,7 +14,7 @@ import {
   SelectItem,
   Select,
 } from "@nextui-org/react";
-import { Trash2, Eye, ChevronRight } from "lucide-react";
+import { Eye, ChevronRight } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import Link from "next/link";
 import { useCallback } from "react";
@@ -98,18 +98,18 @@ const RecentOrders = () => {
         );
       case "actions":
         return (
-          <div className="relative flex items-center gap-2">
-            <Tooltip content="View Details">
-              <span className="cursor-pointer text-lg text-default-400 active:opacity-50">
-                <Eye />
-              </span>
-            </Tooltip>
-            <Tooltip color="danger" content="Delete Order">
-              <span className="cursor-pointer text-lg text-danger active:opacity-50">
-                <Trash2 />
-              </span>
-            </Tooltip>
-          </div>
+          <Tooltip content="View Details">
+            <Button
+              isIconOnly
+              size="sm"
+              variant="light"
+              as={Link}
+              radius="full"
+              href={`/dashboard/customers`}
+            >
+              <Eye className="text-zinc-500" />
+            </Button>
+          </Tooltip>
         );
       default:
         return cellValue;

@@ -2,14 +2,12 @@
 
 import { Tabs as NextUITabs, Tab } from "@nextui-org/react";
 import { BarChart3, UserMinus, Users } from "lucide-react";
-import Customers from "./tables/customers";
-import GuestUsers from "./tables/guest-users";
 import Analytics from "./analytics";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-const Tabs = () => {
+const Tabs = ({ children }: { children: React.ReactNode[] }) => {
   const searchParams = useSearchParams();
   const tab = searchParams.get("tab");
   const [selected, setSelected] = useState(tab || "customers");
@@ -21,8 +19,9 @@ const Tabs = () => {
   return (
     <NextUITabs
       variant="underlined"
-      aria-label="NextUITabs variants"
+      aria-label="Customers"
       color="primary"
+      className="max-w-full overflow-x-scroll md:overflow-hidden"
       selectedKey={selected}
     >
       <Tab
@@ -37,7 +36,7 @@ const Tabs = () => {
         }
       >
         <h1 className="mt-5 text-xl text-zinc-400">All Customers</h1>
-        <Customers />
+        {children[0]}
       </Tab>
       <Tab
         key="guest"
@@ -51,7 +50,7 @@ const Tabs = () => {
         }
       >
         <h1 className="my-5 text-xl text-zinc-400">All Guest Users</h1>
-        <GuestUsers />
+        {children[1]}
       </Tab>
       <Tab
         key="analytics"

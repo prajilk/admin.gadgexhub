@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 import AuthProvider from "@/providers/auth-provider";
 import QueryProvider from "@/providers/query-provider";
 import AutoSignOutProvider from "@/providers/auto-signout-provider";
+import { GlobalContextProvider } from "@/context/store";
 
 export const metadata: Metadata = {
   title: "Admin GadgeXhub",
@@ -22,7 +23,9 @@ export default async function RootLayout({
         <AuthProvider>
           <AutoSignOutProvider>
             <QueryProvider>
-              <NextUIProvider>{children}</NextUIProvider>
+              <GlobalContextProvider>
+                <NextUIProvider>{children}</NextUIProvider>
+              </GlobalContextProvider>
             </QueryProvider>
           </AutoSignOutProvider>
         </AuthProvider>

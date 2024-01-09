@@ -9,10 +9,8 @@ const Settings = async () => {
 
   return (
     <Nav>
-      <div className="px-3">
-        <Profile session={session} />
-        <AdminDetails />
-      </div>
+      <Profile session={session} />
+      <AdminDetails />
     </Nav>
   );
 };

@@ -54,12 +54,6 @@ model Admin {
   role     AdminRole @default(SUPERADMIN)
 }
 
-enum AdminRole {
-  SUPERADMIN
-  ADMIN
-  GUEST
-}
-
 model BestDeal {
   id          Int    @id @default(autoincrement())
   imageUrl    String
@@ -121,7 +115,7 @@ model Image {
   id            Int     @id @default(autoincrement())
   imagePublicId String
   productId     String
-  Product       Product @relation(fields: [productId], references: [id])
+  Product       Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@unique([productId, id])
 }
@@ -150,6 +144,9 @@ model OrderItem {
   offerPrice Float
   Order      Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   Product    Product @relation(fields: [productId], references: [id])
+
+  @@index([orderId], map: "orderId_index")
+  @@index([productId], map: "productId_index")
 }
 
 model Payment {
@@ -164,7 +161,7 @@ model Payment {
 }
 
 model Product {
-  id               String      @id
+  id               String      @id @default(cuid())
   slug             String
   title            String
   description      String
@@ -179,6 +176,7 @@ model Product {
   shortDescription String?
   purchases        Int         @default(0)
   keywords         String[]
+  earnings         Float       @default(0)
   CartItem         CartItem[]
   Image            Image[]
   OrderItem        OrderItem[]
@@ -196,14 +194,14 @@ model Session {
 }
 
 model User {
-  id            String    @id
+  id            String    @id @default(cuid())
   name          String
   email         String    @unique
   gender        String?
   phone         String?
   password      String?
   createdAt     DateTime  @default(now())
-  updatedAt     DateTime
+  updatedAt     DateTime  @updatedAt
   lastLogin     DateTime  @default(now())
   image         String?
   emailVerified DateTime?
@@ -220,4 +218,10 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+enum AdminRole {
+  SUPERADMIN
+  GUEST
+  ADMIN
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Table,
   TableHeader,
@@ -6,10 +8,8 @@ import {
   TableRow,
   TableCell,
   Chip,
-  Tooltip,
   ChipProps,
 } from "@nextui-org/react";
-import { Trash2 } from "lucide-react";
 import { useCallback } from "react";
 import { useGetGuestUsers } from "@/api-hooks/guest-users/get-guest-users";
 import { GuestUserProps } from "@/lib/types/types";

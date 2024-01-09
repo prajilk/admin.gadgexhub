@@ -17,6 +17,7 @@ const cardDetails = [
     bgcolor: "bg-indigo-500",
     value: 1399,
     percentage: { increased: true, value: 43 },
+    isCurrency: true,
   },
   {
     icon: Users,
@@ -333,4 +334,144 @@ const newCustomerRegisters = {
   ],
 };
 
-export { cardDetails, revenueData, topCustomersData, newCustomerRegisters };
+const productOrders = {
+  weeklyData: [
+    {
+      name: "Sat",
+      uv: 10,
+      amt: 2400,
+    },
+    {
+      name: "Sun",
+      uv: 20,
+      amt: 2210,
+    },
+    {
+      name: "Mon",
+      uv: 15,
+      amt: 2290,
+    },
+    {
+      name: "Tue",
+      uv: 30,
+      amt: 2000,
+    },
+    {
+      name: "Wed",
+      uv: 20,
+      amt: 2181,
+    },
+    {
+      name: "Thu",
+      uv: 40,
+      amt: 2500,
+    },
+    {
+      name: "Fri",
+      uv: 21,
+      amt: 2100,
+    },
+  ],
+  monthlyData: [
+    {
+      name: "1-5",
+      uv: 100,
+      amt: 2400,
+    },
+    {
+      name: "6-10",
+      uv: 200,
+      amt: 2210,
+    },
+    {
+      name: "11-15",
+      uv: 150,
+      amt: 2290,
+    },
+    {
+      name: "16-20",
+      uv: 300,
+      amt: 2000,
+    },
+    {
+      name: "21-25",
+      uv: 200,
+      amt: 2181,
+    },
+    {
+      name: "26-30",
+      uv: 400,
+      amt: 2500,
+    },
+  ],
+  yearlyData: [
+    {
+      name: "Jan",
+      uv: 1000,
+      amt: 2400,
+    },
+    {
+      name: "Feb",
+      uv: 2000,
+      amt: 2210,
+    },
+    {
+      name: "Mar",
+      uv: 1500,
+      amt: 2290,
+    },
+    {
+      name: "Apr",
+      uv: 3000,
+      amt: 2000,
+    },
+    {
+      name: "May",
+      uv: 2000,
+      amt: 2181,
+    },
+    {
+      name: "Jun",
+      uv: 4000,
+      amt: 2500,
+    },
+    {
+      name: "July",
+      uv: 2190,
+      amt: 2100,
+    },
+    {
+      name: "Aug",
+      uv: 3000,
+      amt: 2100,
+    },
+    {
+      name: "Sep",
+      uv: 1000,
+      amt: 2100,
+    },
+    {
+      name: "Oct",
+      uv: 1550,
+      amt: 2100,
+    },
+    {
+      name: "Nov",
+      uv: 2000,
+      amt: 2100,
+    },
+    {
+      name: "Dec",
+      uv: 3000,
+      amt: 2100,
+    },
+  ],
+};
+
+export {
+  cardDetails,
+  revenueData,
+  topCustomersData,
+  newCustomerRegisters,
+  productOrders,
+};

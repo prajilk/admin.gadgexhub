@@ -1,5 +1,5 @@
-import { Avatar, Button, Card, CardBody } from "@nextui-org/react";
-import { ChevronRight, Link } from "lucide-react";
+import { Button, Card, CardBody } from "@nextui-org/react";
+import { ChevronRight } from "lucide-react";
 
 const topPages = [
   { page: "/", value: "2117", progressPercentage: 96 },

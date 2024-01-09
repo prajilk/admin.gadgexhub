@@ -22,7 +22,7 @@ export default async function Home() {
   return (
     <Nav>
       <div className="@container">
-        <div className="grid grid-cols-1 gap-3 px-3 @md:grid-cols-2 @4xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-3 @md:grid-cols-2 @4xl:grid-cols-4">
           {cardDetails.map((cardDetail, i) => (
             <SummaryCard {...cardDetail} key={i} />
           ))}

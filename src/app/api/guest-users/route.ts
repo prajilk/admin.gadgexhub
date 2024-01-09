@@ -1,6 +1,12 @@
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/prisma";
-import { error400, error401, error500, success200 } from "@/lib/utils";
+import {
+  error400,
+  error401,
+  error500,
+  formateDate,
+  success200,
+} from "@/lib/utils";
 import { getServerSession } from "next-auth";
 import { NextRequest } from "next/server";
 
@@ -15,11 +21,7 @@ function formatGuestUsers(
 
     return {
       user_id: item.id,
-      expiration_date: expirationDate.toLocaleDateString(undefined, {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      }),
+      expiration_date: formateDate(item.expirationDate),
       status: isExpired ? "expired" : "active",
     };
   });

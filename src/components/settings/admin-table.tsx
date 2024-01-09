@@ -64,7 +64,7 @@ export default function AdminTable() {
   );
 
   return (
-    <div className="mx-3 my-5 rounded-2xl bg-white px-4 pt-4 shadow-md dark:bg-dark">
+    <div className="my-5 rounded-2xl bg-white px-4 pt-4 shadow-md dark:bg-dark">
       <div className="flex items-center justify-between">
         <h1 className="text-lg font-medium">Admin List</h1>
         <CreateAdmin />

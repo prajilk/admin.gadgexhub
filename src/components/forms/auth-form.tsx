@@ -16,7 +16,7 @@ import { ZodAuthSchema } from "@/lib/zod-schemas/schema";
 import { motion as m } from "framer-motion";
 import { toast } from "sonner";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 
@@ -25,6 +25,7 @@ function AuthForm() {
   const [error, setError] = useState<string | null>(null);
   const [signInLoading, setSignInIsLoading] = useState(false);
   const router = useRouter();
+  const callback = useSearchParams();
 
   const form = useForm<z.infer<typeof ZodAuthSchema>>({
     resolver: zodResolver(ZodAuthSchema),
@@ -43,7 +44,7 @@ function AuthForm() {
         email: data.email,
         password: data.password,
         redirect: false,
-        callbackUrl: "/dashboard",
+        callbackUrl: callback.get("callbackUrl") || "/dashboard",
       });
 
       if (signInResponse?.error) {

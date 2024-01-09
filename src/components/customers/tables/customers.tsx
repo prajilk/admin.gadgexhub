@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   Table,
@@ -17,28 +19,47 @@ import {
   Selection,
   SortDescriptor,
 } from "@nextui-org/react";
-import { ChevronDown, MoreVertical, Search } from "lucide-react";
+import { ChevronDown, Eye, Pencil, PlusIcon, Search } from "lucide-react";
 import { capitalize } from "@/lib/utils";
-import {
-  customersColumns as columns,
-  customersData as users,
-} from "@/lib/table-data/customers";
+import { useCustomers } from "@/api-hooks/customers/get-customers";
+import { Customer } from "@/lib/types/types";
+import DefaultSheet from "@/components/sheets/default-sheet";
+import CreateCustomerForm from "@/components/forms/create-customer";
+import EditCustomerForm from "@/components/forms/edit-customer";
+import DeleteCustomer from "@/components/dialog/customer/delete-customer";
+import Link from "next/link";
 
-const INITIAL_VISIBLE_COLUMNS = ["name", "email", "phone", "actions"];
+const columns = [
+  { name: "ID", uid: "id" },
+  { name: "NAME", uid: "name", sortable: true },
+  { name: "EMAIL", uid: "email" },
+  { name: "GENDER", uid: "gender" },
+  { name: "PHONE", uid: "phone" },
+  { name: "CREATED AT", uid: "createdAt", sortable: true },
+  { name: "UPDATED AT", uid: "updatedAt", sortable: true },
+  { name: "LAST LOGIN", uid: "lastLogin", sortable: true },
+  { name: "ACTIONS", uid: "actions" },
+];
 
-type User = (typeof users)[0];
+const INITIAL_VISIBLE_COLUMNS = [
+  "name",
+  "email",
+  "createdAt",
+  "updatedAt",
+  "lastLogin",
+  "actions",
+];
 
 export default function Customers() {
+  const { data: customers } = useCustomers();
+
   const [filterValue, setFilterValue] = React.useState("");
-  const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
-    new Set([]),
-  );
   const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
     new Set(INITIAL_VISIBLE_COLUMNS),
   );
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
-    column: "created_at",
+    column: "name",
     direction: "ascending",
   });
 
@@ -55,7 +76,7 @@ export default function Customers() {
   }, [visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
-    let filteredUsers = [...users];
+    let filteredUsers = [...customers?.customers!];
 
     if (hasSearchFilter) {
       filteredUsers = filteredUsers.filter((user) =>
@@ -76,61 +97,81 @@ export default function Customers() {
   }, [page, filteredItems, rowsPerPage]);
 
   const sortedItems = React.useMemo(() => {
-    return [...items].sort((a: User, b: User) => {
-      const first = a[sortDescriptor.column as keyof User] as number;
-      const second = b[sortDescriptor.column as keyof User] as number;
-      const cmp = first < second ? -1 : first > second ? 1 : 0;
-
-      return sortDescriptor.direction === "descending" ? -cmp : cmp;
+    return [...items].sort((a, b) => {
+      const first = a[sortDescriptor.column as keyof Customer];
+      const second = b[sortDescriptor.column as keyof Customer];
+      if (first && second) {
+        const cmp = first < second ? -1 : first > second ? 1 : 0;
+        return sortDescriptor.direction === "descending" ? -cmp : cmp;
+      } else return 0;
     });
   }, [sortDescriptor, items]);
 
-  const renderCell = React.useCallback((user: User, columnKey: React.Key) => {
-    const cellValue = user[columnKey as keyof User];
+  const renderCell = React.useCallback(
+    (customer: Customer, columnKey: React.Key) => {
+      const cellValue = customer[columnKey as keyof Customer];
 
-    switch (columnKey) {
-      case "name":
-        return (
-          <User
-            avatarProps={{ radius: "lg", src: user.avatar }}
-            name={cellValue}
-          >
-            {user.email}
-          </User>
-        );
-      case "email":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{cellValue}</p>
-          </div>
-        );
-      case "phone":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{cellValue}</p>
-          </div>
-        );
-      case "actions":
-        return (
-          <div className="relative flex items-center justify-end gap-2">
-            <Dropdown>
-              <DropdownTrigger>
-                <Button isIconOnly size="sm" variant="light">
-                  <MoreVertical className="text-default-300" />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu>
-                <DropdownItem>View</DropdownItem>
-                <DropdownItem>Edit</DropdownItem>
-                <DropdownItem>Delete</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          </div>
-        );
-      default:
-        return cellValue;
-    }
-  }, []);
+      switch (columnKey) {
+        case "name":
+          return (
+            <User
+              avatarProps={{
+                radius: "lg",
+                src: customer.image,
+                name: "",
+                showFallback: true,
+              }}
+              name={cellValue}
+            >
+              {customer.email}
+            </User>
+          );
+        case "email":
+          return <p className="text-bold text-small">{cellValue}</p>;
+        case "phone":
+          return <p className="text-bold text-small">{cellValue}</p>;
+        case "actions":
+          return (
+            <div className="flex items-center justify-center">
+              {/* View customer */}
+              <Button
+                isIconOnly
+                size="sm"
+                variant="light"
+                as={Link}
+                radius="full"
+                href={`/dashboard/customers/${customer.id}`}
+              >
+                <Eye size={20} className="text-zinc-500" />
+              </Button>
+
+              {/* Edit customer */}
+              <DefaultSheet
+                title="Edit Customer"
+                trigger={
+                  <Button isIconOnly size="sm" variant="light" radius="full">
+                    <Pencil size={20} className="text-zinc-500" />
+                  </Button>
+                }
+                classNames={{
+                  content: "min-w-[40%]",
+                }}
+              >
+                <div className="px-5">
+                  <EditCustomerForm customer={customer} />
+                </div>
+              </DefaultSheet>
+
+              {/* Delete customer */}
+              <DeleteCustomer id={customer.id} />
+            </div>
+          );
+        default:
+          return cellValue;
+      }
+    },
+    [],
+  );
 
   const onNextPage = React.useCallback(() => {
     if (page < pages) {
@@ -169,7 +210,7 @@ export default function Customers() {
   const topContent = React.useMemo(() => {
     return (
       <div className="mt-5 flex flex-col gap-4">
-        <div className="flex items-end justify-between gap-3">
+        <div className="flex flex-wrap items-end justify-between gap-3">
           <Input
             isClearable
             className="w-full sm:max-w-[44%]"
@@ -184,31 +225,57 @@ export default function Customers() {
             onClear={() => onClear()}
             onValueChange={onSearchChange}
           />
-          <Dropdown>
-            <DropdownTrigger className="z-0 hidden sm:flex">
-              <Button endContent={<ChevronDown size={20} />} variant="flat">
-                Columns
-              </Button>
-            </DropdownTrigger>
-            <DropdownMenu
-              disallowEmptySelection
-              aria-label="Table Columns"
-              closeOnSelect={false}
-              selectedKeys={visibleColumns}
-              selectionMode="multiple"
-              onSelectionChange={setVisibleColumns}
+          <div className="ms-auto flex items-center gap-3 md:ms-0">
+            <Dropdown>
+              <DropdownTrigger className="z-0 hidden sm:flex">
+                <Button
+                  endContent={<ChevronDown size={20} />}
+                  size="sm"
+                  variant="flat"
+                >
+                  Columns
+                </Button>
+              </DropdownTrigger>
+              <DropdownMenu
+                disallowEmptySelection
+                aria-label="Table Columns"
+                closeOnSelect={false}
+                selectedKeys={visibleColumns}
+                className="scrollbar-thin max-h-[250px] overflow-y-scroll"
+                selectionMode="multiple"
+                onSelectionChange={setVisibleColumns}
+              >
+                {columns.map((column) => (
+                  <DropdownItem key={column.uid} className="capitalize">
+                    {capitalize(column.name)}
+                  </DropdownItem>
+                ))}
+              </DropdownMenu>
+            </Dropdown>
+            <DefaultSheet
+              title="Add Customer"
+              trigger={
+                <Button
+                  color="primary"
+                  size="sm"
+                  endContent={<PlusIcon size={20} />}
+                >
+                  Add New
+                </Button>
+              }
+              classNames={{
+                content: "min-w-[40%]",
+              }}
             >
-              {columns.map((column) => (
-                <DropdownItem key={column.uid} className="capitalize">
-                  {capitalize(column.name)}
-                </DropdownItem>
-              ))}
-            </DropdownMenu>
-          </Dropdown>
+              <div className="px-5">
+                <CreateCustomerForm />
+              </div>
+            </DefaultSheet>
+          </div>
         </div>
         <div className="flex items-center justify-between">
           <span className="text-small text-default-400">
-            Total {users.length} users
+            Total {customers?.customers.length} Customers
           </span>
           <label className="flex items-center text-small text-default-400">
             Rows per page:
@@ -235,11 +302,6 @@ export default function Customers() {
   const bottomContent = React.useMemo(() => {
     return (
       <div className="flex items-center justify-between px-2 py-2">
-        <span className="w-[30%] text-small text-default-400">
-          {selectedKeys === "all"
-            ? "All items selected"
-            : `${selectedKeys.size} of ${filteredItems.length} selected`}
-        </span>
         <Pagination
           isCompact
           showControls
@@ -269,14 +331,7 @@ export default function Customers() {
         </div>
       </div>
     );
-  }, [
-    selectedKeys,
-    page,
-    pages,
-    filteredItems.length,
-    onNextPage,
-    onPreviousPage,
-  ]);
+  }, [page, pages, filteredItems.length, onNextPage, onPreviousPage]);
 
   return (
     <Table
@@ -287,12 +342,9 @@ export default function Customers() {
       }}
       bottomContent={bottomContent}
       bottomContentPlacement="outside"
-      selectedKeys={selectedKeys}
-      selectionMode="multiple"
       sortDescriptor={sortDescriptor}
       topContent={topContent}
       topContentPlacement="outside"
-      onSelectionChange={setSelectedKeys}
       onSortChange={setSortDescriptor}
     >
       <TableHeader columns={headerColumns}>

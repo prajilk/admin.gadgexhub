@@ -6,6 +6,19 @@ import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
 
+type DataProps = {
+  name: string;
+  icon: LucideIcon;
+  menus: { title: string; url: string }[];
+};
+
+function findActivePathname(data: DataProps, pathname: string) {
+  if (data.menus.find((menu) => pathname.includes(menu.url))) {
+    return true;
+  }
+  return false;
+}
+
 const SubMenu = ({
   data,
   isOpen,
@@ -19,6 +32,7 @@ const SubMenu = ({
 }) => {
   const pathname = usePathname();
   const [subMenuOpen, setSubMenuOpen] = useState(false);
+
   return (
     <>
       <Popover
@@ -28,10 +42,10 @@ const SubMenu = ({
           base: "before:dark:bg-zinc-800 before:z-10 before:shadow-none",
         }}
       >
-        <PopoverTrigger className="">
+        <PopoverTrigger>
           <button
             className={`flex cursor-default items-center justify-start rounded-md bg-transparent p-3 font-medium outline-none duration-300 md:cursor-pointer ${
-              pathname.includes(data.name) && "text-primary"
+              findActivePathname(data, pathname) && "text-primary"
             }`}
             onClick={() => isOpen && setSubMenuOpen(!subMenuOpen)}
           >
