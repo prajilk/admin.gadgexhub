@@ -40,7 +40,7 @@ const RecentOrders = () => {
         return <h1>{order.oid}</h1>;
       case "user":
         return (
-          <Link href="/dashboard/users" className="hover:text-primary">
+          <Link href="/dashboard/customers" className="hover:text-primary">
             {order.user}
           </Link>
         );
@@ -122,6 +122,8 @@ const RecentOrders = () => {
         <h1 className="text-lg font-medium">Recent Orders</h1>
         <Button
           variant="flat"
+          as={Link}
+          href="/dashboard/orders"
           size="sm"
           color="primary"
           className="dark:bg-zinc-800 dark:text-white"

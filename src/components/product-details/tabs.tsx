@@ -1,12 +1,13 @@
 "use client";
 
 import { Button, Tabs as NextUITabs, Tab } from "@nextui-org/react";
-import { BarChart3, Box, Pencil } from "lucide-react";
+import { BarChart3, Box, Pencil, Trash2 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Analytics from "./analytics";
 import { Image, Product } from "@prisma/client";
+import DeleteProduct from "../dialog/products/delete-product";
 
 const Tabs = ({
   children,
@@ -44,17 +45,31 @@ const Tabs = ({
           </div>
         }
       >
-        <div className="flex items-center justify-between">
+        <div className="mb-5 flex items-center justify-between">
           <h1 className="my-5 text-xl text-zinc-400">Product Details</h1>
-          <Button
-            size="sm"
-            startContent={<Pencil size={15} />}
-            color="primary"
-            as={Link}
-            href={`/dashboard/products/edit?pid=${pid}`}
-          >
-            Edit Product
-          </Button>
+          <div className="flex items-center gap-3">
+            <Button
+              size="sm"
+              startContent={<Pencil size={15} />}
+              color="primary"
+              as={Link}
+              href={`/dashboard/products/edit?pid=${pid}`}
+            >
+              Edit Product
+            </Button>
+            <DeleteProduct id={pid}>
+              {(onOpen) => (
+                <Button
+                  size="sm"
+                  color="danger"
+                  startContent={<Trash2 size={15} />}
+                  onClick={onOpen}
+                >
+                  Delete Product
+                </Button>
+              )}
+            </DeleteProduct>
+          </div>
         </div>
         {children}
       </Tab>

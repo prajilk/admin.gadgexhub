@@ -9,7 +9,7 @@ import { getServerSession } from "next-auth";
 import { NextRequest } from "next/server";
 import bcrypt from "bcrypt";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const session = await getServerSession(authOptions);
 

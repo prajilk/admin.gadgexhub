@@ -21,12 +21,6 @@ export async function GET(
       return error401("Unauthorized");
     }
 
-    if (session.user.role !== "SUPERADMIN") {
-      return error401(
-        `Unauthorized: You are not authorized to perform this action!`,
-      );
-    }
-
     const customerId = params.customerId;
 
     if (!customerId) {

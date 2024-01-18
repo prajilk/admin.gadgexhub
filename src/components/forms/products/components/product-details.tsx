@@ -1,4 +1,4 @@
-import { useCategories } from "@/api-hooks/products/get-categories";
+import { useCategoryEndChild } from "@/api-hooks/categories/get-end-child";
 import {
   FormControl,
   FormField,
@@ -17,7 +17,7 @@ const ProductDetails = ({ form }: ProductFormProps) => {
     }
   }
 
-  const { data: categories } = useCategories();
+  const { data: categories } = useCategoryEndChild();
   return (
     <div className="flex-1 p-5 pe-3">
       <FormField

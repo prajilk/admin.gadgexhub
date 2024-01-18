@@ -102,3 +102,8 @@ export const ZodProductSchema = z.object({
     },
   ),
 });
+
+export const ZodCategorySchema = z.object({
+  category: z.string(),
+  parentId: z.string(),
+});

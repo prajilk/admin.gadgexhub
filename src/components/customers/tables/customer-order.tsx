@@ -2,8 +2,8 @@
 
 import { useCustomerOrders } from "@/api-hooks/customers/get-order";
 import { useUpdateOrderStatus } from "@/api-hooks/orders/update-status";
-import { OrderProps } from "@/lib/types/types";
-import { capitalize, formatCurrency, formateDate } from "@/lib/utils";
+import { CustomerOrderProps } from "@/lib/types/types";
+import { capitalize, formatCurrency } from "@/lib/utils";
 import {
   Button,
   Chip,
@@ -76,90 +76,96 @@ export default function CustomerOrder({ customerId }: { customerId: string }) {
     );
   }, [visibleColumns]);
 
-  const renderCell = useCallback((order: OrderProps, columnKey: React.Key) => {
-    const cellValue = order[columnKey as keyof OrderProps];
+  const renderCell = useCallback(
+    (order: CustomerOrderProps, columnKey: React.Key) => {
+      const cellValue = order[columnKey as keyof CustomerOrderProps];
 
-    switch (columnKey) {
-      case "oid":
-        return <h1>{order.oid}</h1>;
-      case "amount":
-        return <h1 className="font-Roboto">{formatCurrency(order.amount)}</h1>;
-      case "addressId":
-        return <h1>{order.addressId}</h1>;
-      case "date":
-        return <h1>{order.date}</h1>;
-      case "payment":
-        return (
-          <h1
-            className={`${
-              order.payment ? "text-success" : "text-danger"
-            } ms-10`}
-          >
-            {order.payment ? "true" : "false"}
-          </h1>
-        );
-      case "status":
-        return (
-          <Chip
-            className="capitalize"
-            color={statusColorMap[order.status]}
-            size="sm"
-            variant="flat"
-          >
-            {cellValue}
-          </Chip>
-        );
-      case "update_status":
-        return (
-          <Select
-            placeholder="Update status"
-            className="max-w-xs"
-            defaultSelectedKeys={[order.status]}
-            onChange={(e) =>
-              mutation.mutate({ id: order.oid, status: e.target.value })
-            }
-            isDisabled={mutation.isPending}
-            classNames={{
-              trigger: "h-fit min-h-fit p-2",
-              value: "text-xs",
-            }}
-            aria-label="Update status"
-            size="sm"
-          >
-            {["pending", "ongoing", "delivered"].map((value) => (
-              <SelectItem
-                key={value}
-                value={value}
-                className="capitalize"
-                classNames={{
-                  title: "text-xs",
-                }}
-              >
-                {value}
-              </SelectItem>
-            ))}
-          </Select>
-        );
-      case "actions":
-        return (
-          <div className="flex items-center justify-center">
-            {/* View order */}
-            <Button
-              isIconOnly
-              size="sm"
-              variant="light"
-              as={Link}
-              radius="full"
-              href={`/dashboard/customers/${order.oid}`}
+      switch (columnKey) {
+        case "oid":
+          return <h1>{order.oid}</h1>;
+        case "amount":
+          return (
+            <h1 className="font-Roboto">{formatCurrency(order.amount)}</h1>
+          );
+        case "addressId":
+          return <h1>{order.addressId}</h1>;
+        case "date":
+          return <h1>{order.date}</h1>;
+        case "payment":
+          return (
+            <h1
+              className={`${
+                order.payment ? "text-success" : "text-danger"
+              } ms-10`}
             >
-              <Eye className="text-zinc-500" />
-            </Button>
-          </div>
-        );
-      default:
-        return cellValue;
-    }
-  }, []);
+              {order.payment ? "true" : "false"}
+            </h1>
+          );
+        case "status":
+          return (
+            <Chip
+              className="capitalize"
+              color={statusColorMap[order.status]}
+              size="sm"
+              variant="flat"
+            >
+              {cellValue}
+            </Chip>
+          );
+        case "update_status":
+          return (
+            <Select
+              placeholder="Update status"
+              className="max-w-xs"
+              isLoading={mutation.isPending}
+              defaultSelectedKeys={[order.status]}
+              onChange={(e) =>
+                mutation.mutate({ id: order.oid, status: e.target.value })
+              }
+              isDisabled={mutation.isPending}
+              classNames={{
+                trigger: "h-fit min-h-fit p-2",
+                value: "text-xs",
+              }}
+              aria-label="Update status"
+              size="sm"
+            >
+              {["pending", "ongoing", "delivered"].map((value) => (
+                <SelectItem
+                  key={value}
+                  value={value}
+                  className="capitalize"
+                  classNames={{
+                    title: "text-xs",
+                  }}
+                >
+                  {value}
+                </SelectItem>
+              ))}
+            </Select>
+          );
+        case "actions":
+          return (
+            <div className="flex items-center justify-center">
+              {/* View order */}
+              <Button
+                isIconOnly
+                size="sm"
+                variant="light"
+                as={Link}
+                radius="full"
+                href={`/dashboard/orders/${order.oid}`}
+              >
+                <Eye className="text-zinc-500" />
+              </Button>
+            </div>
+          );
+        default:
+          return cellValue;
+      }
+    },
+    [],
+  );
 
   const onRowsPerPageChange = useCallback(
     (e: ChangeEvent<HTMLSelectElement>) => {

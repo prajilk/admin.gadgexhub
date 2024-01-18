@@ -12,7 +12,13 @@ import {
 import { Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
-const DeleteProduct = ({ id }: { id: string }) => {
+const DeleteProduct = ({
+  id,
+  children,
+}: {
+  id: string;
+  children?: (onOpen: () => void) => React.ReactNode;
+}) => {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
   const onSuccess = () => {
@@ -25,18 +31,22 @@ const DeleteProduct = ({ id }: { id: string }) => {
 
   return (
     <>
-      <Tooltip color="danger" content="Delete Product" showArrow>
-        <Button
-          onPress={onOpen}
-          variant="light"
-          radius="full"
-          size="sm"
-          color="danger"
-          isIconOnly
-        >
-          <Trash2 size={20} />
-        </Button>
-      </Tooltip>
+      {children ? (
+        children(onOpen)
+      ) : (
+        <Tooltip color="danger" content="Delete Product" showArrow>
+          <Button
+            onPress={onOpen}
+            variant="light"
+            radius="full"
+            size="sm"
+            color="danger"
+            isIconOnly
+          >
+            <Trash2 size={20} />
+          </Button>
+        </Tooltip>
+      )}
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="center">
         <ModalContent>
           {(onClose) => (

@@ -3,7 +3,7 @@ import { CustomerOrderResProps } from "@/lib/types/types";
 import { useQuery } from "@tanstack/react-query";
 
 async function getCustomerOrdersClient(customerId: string) {
-  const { data } = await axios.get(`/api/orders/${customerId}`);
+  const { data } = await axios.get(`/api/orders/customer/${customerId}`);
   return data as CustomerOrderResProps;
 }
 

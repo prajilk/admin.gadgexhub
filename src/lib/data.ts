@@ -4,7 +4,7 @@ const cardDetails = [
   {
     icon: CalendarClock,
     title: "Orders Pending",
-    url: "/",
+    url: "/dashboard/orders",
     color: "text-danger",
     bgcolor: "bg-danger",
     value: 120,

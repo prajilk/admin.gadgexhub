@@ -86,12 +86,12 @@ model CartItem {
 }
 
 model Category {
-  id             Int        @id @default(autoincrement())
-  name           String
-  parentId       Int?
-  Category       Category?  @relation("CategoryToCategory", fields: [parentId], references: [id])
-  other_Category Category[] @relation("CategoryToCategory")
-  Product        Product[]
+  id       Int        @id @default(autoincrement())
+  name     String
+  parentId Int?
+  parent   Category?  @relation("Category", fields: [parentId], references: [id])
+  Category Category[] @relation("Category")
+  Product  Product[]
 }
 
 model GuestUser {
@@ -123,6 +123,8 @@ model Image {
 model Order {
   id               String      @id @unique
   orderDate        DateTime    @default(now())
+  packedDate       DateTime?
+  deliveredDate    DateTime?
   total            Float
   userId           String
   payment_verified Boolean     @default(false)

@@ -3,6 +3,7 @@ import {
   Image,
   Order,
   OrderItem,
+  Payment,
   Product,
 } from "@prisma/client";
 import { LucideIcon } from "lucide-react";
@@ -90,7 +91,35 @@ type AddressResProps = Res & {
   addresses: Address[];
 };
 
-type OrderProps = {
+type OrderProps = Omit<Order, "orderDate"> & {
+  itemsCount: number;
+  orderDate: string;
+};
+
+type OrderItemProps = OrderItem & { title: string; Image: string };
+
+type SingleOrder = Order & {
+  Address: Address;
+  Payment: Payment;
+  User: {
+    id: string;
+    name: string;
+    email: string;
+    phone: string | null;
+    image: string | null;
+  };
+  OrderItem: OrderItemProps[];
+};
+
+type SingleOrderResProps = Res & {
+  order: SingleOrder | null;
+};
+
+type OrderResProps = Res & {
+  orders: OrderProps[];
+};
+
+type CustomerOrderProps = {
   oid: string;
   amount: number;
   date: string;
@@ -113,7 +142,7 @@ type CustomerProfileProps = {
 
 type CustomerOrderResProps = Res & {
   customer: CustomerProfileProps;
-  orders: OrderProps[] | null;
+  orders: CustomerOrderProps[] | null;
 };
 
 type ProductProps = Omit<Product, "createAt"> & {
@@ -162,7 +191,12 @@ interface Category {
   id: number;
   name: string;
   parentId: number | null;
+  _count?: number;
 }
+
+type CategoryRes = Res & { categories: Category[] };
+
+type EditCategoryRes = Res & { category: Category };
 
 type ColorVariant = {
   color: string;
@@ -231,7 +265,11 @@ export type {
   EditAdminResProps,
   Address,
   AddressResProps,
+  OrderItemProps,
   OrderProps,
+  SingleOrder,
+  SingleOrderResProps,
+  CustomerOrderProps,
   CustomerProfileProps,
   CustomerOrderResProps,
   ProductResProps,
@@ -241,7 +279,10 @@ export type {
   ProductFormProps,
   EditProductProps,
   EditProductResProps,
+  OrderResProps,
   Category,
+  CategoryRes,
+  EditCategoryRes,
   ColorVariant,
   ColorVariantReturn,
   AddColorSectionProps,

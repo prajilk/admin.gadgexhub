@@ -46,7 +46,7 @@ function SummaryCard(props: SummaryCardProps) {
               </NextUILink>
             )}
             {props.percentage && (
-              <div className="flex flex-col text-right">
+              <div className="ms-auto flex flex-col text-right">
                 <span
                   className={`${
                     props.percentage.increased ? "text-success" : "text-danger"

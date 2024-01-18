@@ -14,12 +14,14 @@ import {
 } from "@nextui-org/react";
 import { formatCurrency, textTruncate } from "@/lib/utils";
 import { useCallback } from "react";
-import { ChevronRight, Eye, Trash2 } from "lucide-react";
+import { ChevronRight, Eye } from "lucide-react";
 import { toast } from "sonner";
 import {
   topSellingProducts,
   topSellingProductsColumns,
 } from "@/lib/table-data/top-selling";
+import Link from "next/link";
+import DeleteProduct from "@/components/dialog/products/delete-product";
 
 type Product = (typeof topSellingProducts)[0];
 
@@ -87,15 +89,18 @@ export default function TopSellingProducts() {
         return (
           <div className="relative flex items-center gap-2">
             <Tooltip content="View Details">
-              <span className="cursor-pointer text-lg text-default-400 active:opacity-50">
-                <Eye />
-              </span>
+              <Button
+                isIconOnly
+                size="sm"
+                variant="light"
+                as={Link}
+                radius="full"
+                href={`/dashboard/products/${product.pid}`}
+              >
+                <Eye className="text-zinc-500" />
+              </Button>
             </Tooltip>
-            <Tooltip color="danger" content="Delete Product">
-              <span className="cursor-pointer text-lg text-danger active:opacity-50">
-                <Trash2 />
-              </span>
-            </Tooltip>
+            <DeleteProduct id={product.pid} />
           </div>
         );
       default:
@@ -110,6 +115,8 @@ export default function TopSellingProducts() {
         <Button
           variant="flat"
           size="sm"
+          as={Link}
+          href="/dashboard/products"
           color="primary"
           className="dark:bg-zinc-800 dark:text-white"
           endContent={<ChevronRight size={15} />}

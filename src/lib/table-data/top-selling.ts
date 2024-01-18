@@ -12,7 +12,7 @@ const topSellingProductsColumns = [
 const topSellingProducts = [
   {
     id: 1,
-    pid: "clnoqj7rg0001u55w3pjttd84",
+    pid: "closj4d760001u5tgmqc112q3",
     product: "OnePlus Buds Z2",
     image:
       "https://res.cloudinary.com/dndgaxb4k/image/upload/v1699615391/products/oneplus-buds-z2/Matte%20Black/a3e60f3ce4b-thumb.png",

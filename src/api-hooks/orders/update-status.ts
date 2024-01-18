@@ -7,17 +7,27 @@ async function handleUpdate({ id, status }: { id: string; status: string }) {
   return data;
 }
 
-export function useUpdateOrderStatus() {
+export function useUpdateOrderStatus(cb?: () => void) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: handleUpdate,
-    onSuccess: () => toast.success("Order status updated successfully."),
+    onSuccess: () => {
+      toast.success("Order status updated successfully.");
+      cb && cb();
+    },
     onError: (error: any) => {
       if (error.response.status === 401)
         toast.error(error.response.data.message || "Error in updating status!");
       else toast.error("Error in updating status!");
     },
     onSettled: () =>
-      queryClient.invalidateQueries({ queryKey: ["orders", "customerId"] }),
+      Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: ["orders"],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: ["orders", "customerId"],
+        }),
+      ]),
   });
 }

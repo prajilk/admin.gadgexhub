@@ -10,6 +10,7 @@ import {
   Users,
   Menu,
   BookText,
+  Boxes,
 } from "lucide-react";
 import { useMediaQuery } from "react-responsive";
 import Link from "next/link";
@@ -109,6 +110,17 @@ const Sidebar = () => {
               </Link>
             </li>
             <div className="flex flex-col">
+              <li>
+                <Link
+                  href="/dashboard/orders"
+                  className={`${
+                    pathname === "/dashboard/orders" && "text-primary"
+                  } flex cursor-default items-center justify-start rounded-md bg-transparent p-3 font-medium outline-none duration-300 md:cursor-pointer`}
+                >
+                  <Boxes size={23} className="min-w-max" />
+                  <p className="ml-5 flex-1 text-left capitalize">Orders</p>
+                </Link>
+              </li>
               <SubMenu
                 isOpen={open}
                 data={{
@@ -132,18 +144,6 @@ const Sidebar = () => {
                 }}
               />
             </div>
-            {/* <li>
-              <Link
-                href="/dashboard"
-                className={`${
-                  pathname === "/dashboard/products" &&
-                  "bg-zinc-200 dark:bg-zinc-800 dark:text-primary"
-                } flex cursor-default items-center gap-7 rounded-md p-2.5 font-medium duration-300 md:cursor-pointer`}
-              >
-                <Boxes size={23} className="min-w-max" />
-                Products
-              </Link>
-            </li> */}
           </ul>
         </div>
         <motion.div
