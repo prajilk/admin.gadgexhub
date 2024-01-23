@@ -27,7 +27,6 @@ import { capitalize, formatCurrency } from "@/lib/utils";
 import Link from "next/link";
 import { OrderProps } from "@/lib/types/types";
 import { useUpdateOrderStatus } from "@/api-hooks/orders/update-status";
-import { toast } from "sonner";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   delivered: "success",

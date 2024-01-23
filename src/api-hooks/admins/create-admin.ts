@@ -1,5 +1,4 @@
 import axios from "@/config/axios.config";
-import { EditAdminResProps } from "@/lib/types/types";
 import { ZodAdminSchema } from "@/lib/zod-schemas/schema";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";

@@ -5,10 +5,12 @@ import { usePathname } from "next/navigation";
 const NavHeading = () => {
   const pathname = usePathname();
   let path = pathname.split("/").at(-1);
-  if (path && path.length > 10) path = pathname.split("/").at(-2);
+  if (path && path.length > 12) path = pathname.split("/").at(-2);
 
   return (
-    <h1 className="ms-10 text-xl font-medium capitalize lg:ms-0">{path}</h1>
+    <h1 className="ms-10 text-xl font-medium capitalize lg:ms-0">
+      {path?.replace("-", " ")}
+    </h1>
   );
 };
 

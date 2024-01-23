@@ -21,7 +21,7 @@ const TopPages = () => {
       <CardBody>
         <div className="flex items-center justify-between">
           <h1 className="text-lg font-medium">Top Pages</h1>
-          <Button
+          {/* <Button
             variant="flat"
             size="sm"
             color="primary"
@@ -29,7 +29,7 @@ const TopPages = () => {
             endContent={<ChevronRight size={15} />}
           >
             View All
-          </Button>
+          </Button> */}
         </div>
         <ul className="mt-4 space-y-3 ps-1">
           {topPages.map((data, i) => (

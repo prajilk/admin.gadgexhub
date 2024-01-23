@@ -12,7 +12,7 @@ const cardDetails = [
   {
     icon: Wallet,
     title: "Total Revenue",
-    url: "/",
+    url: "/dashboard/revenue",
     color: "text-indigo-500",
     bgcolor: "bg-indigo-500",
     value: 1399,
@@ -31,7 +31,7 @@ const cardDetails = [
   {
     icon: Package,
     title: "Total Sales",
-    url: "/",
+    url: "/dashboard/revenue",
     color: "text-[#F5B849]",
     bgcolor: "bg-[#F5B849]",
     value: 120,
@@ -87,6 +87,58 @@ const topCustomersData = [
     amountSpent: 5690,
     name: "Jasmin Morgan",
     purchases: 5,
+    lastPurchase: "3 days ago",
+  },
+];
+
+const topSalesData = [
+  {
+    image: "https://i.pravatar.cc/150?u=a04258114e29026702",
+    amountSpent: 22390,
+    name: "Regan Keith",
+    items: 5,
+    lastPurchase: "5 days ago",
+  },
+  {
+    image: "https://i.pravatar.cc/150?u=a04258114e29026702d",
+    amountSpent: 12900,
+    name: "Jane Doe",
+    items: 4,
+    lastPurchase: "1 days ago",
+  },
+  {
+    image: "https://i.pravatar.cc/150?u=a04258114e29026",
+    amountSpent: 1900,
+    name: "Maia Hancock",
+    items: 3,
+    lastPurchase: "2 days ago",
+  },
+  {
+    image: "https://i.pravatar.cc/150?u=a04258114e290",
+    amountSpent: 8990,
+    name: "Skyler Powell",
+    items: 1,
+    lastPurchase: "7 days ago",
+  },
+  {
+    image: "https://i.pravatar.cc/150?u=a04258114e2902",
+    amountSpent: 8930,
+    name: "Andrew Sims",
+    items: 2,
+    lastPurchase: "6 days ago",
+  },
+  {
+    image: "https://i.pravatar.cc/150?u=a04258114e290267",
+    amountSpent: 7790,
+    name: "Braxton Mcdonald",
+    items: 2,
+    lastPurchase: "4 days ago",
+  },
+  {
+    image: "https://i.pravatar.cc/150?u=a04258114e2902670",
+    amountSpent: 1690,
+    name: "Jasmin Morgan",
+    items: 1,
     lastPurchase: "3 days ago",
   },
 ];
@@ -471,6 +523,7 @@ const productOrders = {
 export {
   cardDetails,
   revenueData,
+  topSalesData,
   topCustomersData,
   newCustomerRegisters,
   productOrders,

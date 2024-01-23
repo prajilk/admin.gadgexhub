@@ -28,8 +28,8 @@ const EditProductForm = ({ product }: { product: EditProductProps }) => {
       basePrice: product.basePrice.toString(),
       offerPrice: product.offerPrice.toString(),
       colors: [{}],
-      variantName: product.variantName,
-      variantValues: product.variantValues,
+      variantName: product.variantName || "",
+      variantValues: product.variantValues || "",
       keywords: product.keywords.join(","),
     },
   });

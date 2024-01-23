@@ -1,6 +1,9 @@
 import {
   Address as AddressPrisma,
+  BestDeal,
+  HeroBanner,
   Image,
+  MarqueeOffers,
   Order,
   OrderItem,
   Payment,
@@ -91,9 +94,14 @@ type AddressResProps = Res & {
   addresses: Address[];
 };
 
-type OrderProps = Omit<Order, "orderDate"> & {
+type OrderProps = Omit<
+  Omit<Omit<Order, "orderDate">, "packedDate">,
+  "deliveredDate"
+> & {
   itemsCount: number;
   orderDate: string;
+  packedDate: string;
+  deliveredDate: string;
 };
 
 type OrderItemProps = OrderItem & { title: string; Image: string };
@@ -252,6 +260,14 @@ type MakeColorVariant = {
   images: Image[];
 };
 
+type DealsAndOffers = {
+  deal: BestDeal | null;
+  offers: MarqueeOffers[];
+  banners: HeroBanner[];
+};
+
+type DealsAndOffersRes = Res & DealsAndOffers;
+
 export type {
   SummaryCardProps,
   AdminProfileResProps,
@@ -291,4 +307,6 @@ export type {
   ImagePreviewProps,
   MakeColorVariant,
   ColorVariantRes,
+  DealsAndOffers,
+  DealsAndOffersRes,
 };

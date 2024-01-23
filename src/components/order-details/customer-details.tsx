@@ -18,7 +18,7 @@ const CustomerDetails = ({ data }: { data: CustomerDetailsProps }) => {
           <h1>Customer details</h1>
           <Button
             as={Link}
-            href={`/dashboard/customer/${data.id}`}
+            href={`/dashboard/customers/${data.id}`}
             size="sm"
             color="primary"
             variant="light"

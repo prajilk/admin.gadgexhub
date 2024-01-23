@@ -24,6 +24,7 @@ export const ZodCustomerSchema = z.object({
     })
     .optional(),
 });
+
 export const ZodCustomerSchemaWithPassword = z.object({
   name: z.string().min(3).max(20),
   email: z.string().email({ message: "Invalid email address" }),
@@ -106,4 +107,32 @@ export const ZodProductSchema = z.object({
 export const ZodCategorySchema = z.object({
   category: z.string(),
   parentId: z.string(),
+});
+
+export const ZodBestDealSchema = z.object({
+  title: z.string(),
+  id: z.string().length(25, "Invalid product ID"),
+  slug: z.string(),
+  description: z
+    .string()
+    .max(100, "Value must be less than 100 characters long"),
+  price: z.string(),
+});
+
+export const ZodMarqueeOfferSchema = z.object({
+  title: z
+    .string()
+    .min(3, "Value must be 3 or more characters long")
+    .max(70, "Value must be less than 70 characters long"),
+  url: z.string(),
+});
+
+export const ZodHeroBannerSchema = z.object({
+  title: z.string(),
+  url: z.string(),
+  description: z
+    .string()
+    .max(100, "Value must be less than 100 characters long"),
+  basePrice: z.string(),
+  offerPrice: z.string(),
 });

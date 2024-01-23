@@ -255,6 +255,7 @@ export default function ProductsTable() {
                 closeOnSelect={false}
                 selectedKeys={visibleColumns}
                 selectionMode="multiple"
+                aria-label="product-table-column-select"
                 onSelectionChange={setVisibleColumns}
               >
                 {columns.map((column) => (

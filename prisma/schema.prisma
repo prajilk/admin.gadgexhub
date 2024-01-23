@@ -222,6 +222,12 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+model MarqueeOffers {
+  id    Int    @id @default(autoincrement())
+  title String
+  url   String
+}
+
 enum AdminRole {
   SUPERADMIN
   GUEST

@@ -11,6 +11,9 @@ import {
   Menu,
   BookText,
   Boxes,
+  BadgePercent,
+  Wallet,
+  BarChart3,
 } from "lucide-react";
 import { useMediaQuery } from "react-responsive";
 import Link from "next/link";
@@ -121,6 +124,17 @@ const Sidebar = () => {
                   <p className="ml-5 flex-1 text-left capitalize">Orders</p>
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/dashboard/revenue"
+                  className={`${
+                    pathname === "/dashboard/revenue" && "text-primary"
+                  } flex cursor-default items-center justify-start rounded-md bg-transparent p-3 font-medium outline-none duration-300 md:cursor-pointer`}
+                >
+                  <Wallet size={23} className="min-w-max" />
+                  <p className="ml-5 flex-1 text-left capitalize">Revenue</p>
+                </Link>
+              </li>
               <SubMenu
                 isOpen={open}
                 data={{
@@ -143,6 +157,31 @@ const Sidebar = () => {
                   ],
                 }}
               />
+              <li>
+                <Link
+                  href="/dashboard/offers"
+                  className={`${
+                    pathname === "/dashboard/offers" && "text-primary"
+                  } flex cursor-default items-center justify-start rounded-md bg-transparent p-3 font-medium outline-none duration-300 md:cursor-pointer`}
+                >
+                  <BadgePercent size={23} className="min-w-max" />
+                  <p className="ml-5 flex-1 text-left capitalize">
+                    Best Deals & Offers
+                  </p>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/dashboard/site-traffic"
+                  className={`${
+                    pathname === "/dashboard/site-traffic" &&
+                    "bg-zinc-200 text-primary dark:bg-zinc-800"
+                  } flex cursor-default items-center gap-5 rounded-md p-2.5 font-medium duration-300 md:cursor-pointer`}
+                >
+                  <BarChart3 size={23} className="min-w-max" />
+                  Site Traffic
+                </Link>
+              </li>
             </div>
           </ul>
         </div>

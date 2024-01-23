@@ -16,7 +16,7 @@ const TopStateBySales = () => {
       <CardBody>
         <div className="flex items-center justify-between">
           <h1 className="text-lg font-medium">Top States By Sales</h1>
-          <Button
+          {/* <Button
             variant="flat"
             size="sm"
             color="primary"
@@ -24,7 +24,7 @@ const TopStateBySales = () => {
             endContent={<ChevronRight size={15} />}
           >
             View All
-          </Button>
+          </Button> */}
         </div>
         <ul className="mt-4 space-y-3 ps-1">
           {topStateData.map((data, i) => (

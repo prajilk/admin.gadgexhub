@@ -132,6 +132,21 @@ function AuthForm() {
           >
             Sign in
           </Button>
+          <Button
+            color="primary"
+            isDisabled={signInLoading}
+            radius="full"
+            onClick={() =>
+              handleSignIn({
+                email: "guest.admin@mail.com",
+                password: "admin123",
+              })
+            }
+            variant="light"
+            type="button"
+          >
+            Sign in as Guest
+          </Button>
         </div>
       </form>
     </Form>

@@ -105,7 +105,7 @@ const RecentOrders = () => {
               variant="light"
               as={Link}
               radius="full"
-              href={`/dashboard/customers`}
+              href={`/dashboard/orders`}
             >
               <Eye className="text-zinc-500" />
             </Button>
