@@ -26,28 +26,31 @@ export async function GET(
     if (!customerId) {
       return error400("Invalid data format.", {});
     }
-    const customerOrders = await db.order.findMany({
+
+    const customerOrders = await db.user.findUnique({
       where: {
-        userId: customerId,
+        id: customerId,
       },
       include: {
-        User: true,
+        Order: true,
       },
     });
 
+    if (!customerOrders) return error400("No customer found with this ID", {});
+
     return success200({
       customer: {
-        id: customerOrders[0].User.id,
-        name: customerOrders[0].User.name,
-        email: customerOrders[0].User.email,
-        gender: customerOrders[0].User.gender,
-        phone: customerOrders[0].User.phone,
-        image: customerOrders[0].User.image,
-        createdAt: formateDate(customerOrders[0].User.createdAt),
-        updatedAt: formateDate(customerOrders[0].User.updatedAt),
-        lastLogin: formateDate(customerOrders[0].User.lastLogin),
+        id: customerOrders.id,
+        name: customerOrders.name,
+        email: customerOrders.email,
+        gender: customerOrders.gender,
+        phone: customerOrders.phone,
+        image: customerOrders.image,
+        createdAt: formateDate(customerOrders.createdAt),
+        updatedAt: formateDate(customerOrders.updatedAt),
+        lastLogin: formateDate(customerOrders.lastLogin),
       },
-      orders: customerOrders.map((order) => ({
+      orders: customerOrders.Order.map((order) => ({
         oid: order.id,
         amount: order.total,
         date: formateDate(order.orderDate),

@@ -176,8 +176,11 @@ export default function CustomerOrder({ customerId }: { customerId: string }) {
   );
 
   const filteredItems = useMemo(() => {
-    let filteredOrders = [...orders?.orders!];
-    return filteredOrders;
+    if (orders) {
+      let filteredOrders = [...orders?.orders!];
+      return filteredOrders;
+    }
+    return [];
   }, []);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);

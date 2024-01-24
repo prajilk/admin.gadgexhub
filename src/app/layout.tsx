@@ -6,6 +6,7 @@ import AuthProvider from "@/providers/auth-provider";
 import QueryProvider from "@/providers/query-provider";
 import AutoSignOutProvider from "@/providers/auto-signout-provider";
 import { GlobalContextProvider } from "@/context/store";
+import Loading from "./loading";
 
 export const metadata: Metadata = {
   title: "Admin GadgeXhub",
