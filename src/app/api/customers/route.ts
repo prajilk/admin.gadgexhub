@@ -3,6 +3,7 @@ import { db } from "@/lib/prisma";
 import {
   error400,
   error401,
+  error403,
   error500,
   formateDate,
   success200,
@@ -55,9 +56,7 @@ export async function PATCH(req: NextRequest) {
     }
 
     if (session.user.role !== "SUPERADMIN") {
-      return error401(
-        `Unauthorized: You are not authorized to perform this action!`,
-      );
+      return error403();
     }
 
     const data = await req.json();
@@ -109,9 +108,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (session.user.role !== "SUPERADMIN") {
-      return error401(
-        `Unauthorized: You are not authorized to perform this action!`,
-      );
+      return error403();
     }
 
     const data = await req.json();
@@ -175,9 +172,7 @@ export async function DELETE(req: NextRequest) {
     }
 
     if (session.user.role !== "SUPERADMIN") {
-      return error401(
-        `Unauthorized: You are not authorized to perform this action!`,
-      );
+      return error403();
     }
 
     const customerId = req.nextUrl.searchParams.get("id");

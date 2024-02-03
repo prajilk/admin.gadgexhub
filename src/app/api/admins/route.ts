@@ -1,6 +1,12 @@
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/prisma";
-import { error400, error401, error500, success200 } from "@/lib/utils";
+import {
+  error400,
+  error401,
+  error403,
+  error500,
+  success200,
+} from "@/lib/utils";
 import {
   ZodAdminSchema,
   ZodAdminSchemaWithPassword,
@@ -43,9 +49,7 @@ export async function PATCH(req: NextRequest) {
     }
 
     if (session.user.role !== "SUPERADMIN") {
-      return error401(
-        `Unauthorized: You are not authorized to perform this action!`,
-      );
+      return error403();
     }
 
     const data = await req.json();
@@ -95,9 +99,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (session.user.role !== "SUPERADMIN") {
-      return error401(
-        `Unauthorized: You are not authorized to perform this action!`,
-      );
+      return error403();
     }
 
     const data = await req.json();
@@ -135,9 +137,7 @@ export async function DELETE(req: NextRequest) {
     }
 
     if (session.user.role !== "SUPERADMIN") {
-      return error401(
-        `Unauthorized: You are not authorized to perform this action!`,
-      );
+      return error403();
     }
 
     const adminId = req.nextUrl.searchParams.get("id");

@@ -57,6 +57,14 @@ function error401(message: string) {
   return NextResponse.json(json, { status: 401 });
 }
 
+function error403() {
+  const json = {
+    success: false,
+    message: "Forbidden: You are not authorized to perform this action!",
+  };
+  return NextResponse.json(json, { status: 403 });
+}
+
 function error500(data: { [key: string]: any }) {
   const json = {
     success: false,
@@ -189,6 +197,7 @@ export {
   error400,
   error404,
   error401,
+  error403,
   error500,
   success200,
   capitalize,

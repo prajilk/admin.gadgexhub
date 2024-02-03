@@ -3,6 +3,7 @@ import { db } from "@/lib/prisma";
 import {
   error400,
   error401,
+  error403,
   error500,
   formateDate,
   success200,
@@ -79,9 +80,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (session.user.role !== "SUPERADMIN") {
-      return error401(
-        `Unauthorized: You are not authorized to perform this action!`,
-      );
+      return error403();
     }
 
     const data: z.infer<typeof ZodProductSchema> = await req.json();
