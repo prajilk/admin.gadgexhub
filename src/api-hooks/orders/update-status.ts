@@ -16,7 +16,7 @@ export function useUpdateOrderStatus(cb?: () => void) {
       cb && cb();
     },
     onError: (error: any) => {
-      if (error.response.status === 401)
+      if (error.response.status === 403)
         toast.error(error.response.data.message || "Error in updating status!");
       else toast.error("Error in updating status!");
     },

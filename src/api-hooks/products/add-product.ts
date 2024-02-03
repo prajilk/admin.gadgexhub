@@ -15,8 +15,12 @@ export function useAddProduct(onSuccess: () => void) {
   return useMutation({
     mutationFn: handleCreate,
     onSuccess,
-    onError: (error) => {
-      toast.error(error.message);
+    onError: (error: any) => {
+      if (error.response.status === 403)
+        toast.error(
+          error.response.data.message || "Error creating the product!",
+        );
+      else toast.error("Error creating the product!");
     },
     onSettled: () => queryClient.invalidateQueries({ queryKey: ["products"] }),
   });

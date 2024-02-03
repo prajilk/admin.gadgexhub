@@ -31,7 +31,7 @@ export function useUpdateHeroBanner(onSuccess: () => void) {
     mutationFn: handleUpdate,
     onSuccess: onSuccess,
     onError: (error: any) => {
-      if (error.response.status === 401)
+      if (error.response.status === 403)
         toast.error(error.response.data.message || "Error in updating banner!");
       else toast.error("Error in updating banner!");
     },

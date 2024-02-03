@@ -23,7 +23,7 @@ export function useCreateOffer(onSuccess: () => void) {
     mutationFn: handleUpdate,
     onSuccess,
     onError: (error: any) => {
-      if (error.response.status === 401)
+      if (error.response.status === 403)
         toast.error(error.response.data.message || "Error in saving offer!");
       else toast.error("Error in saving offer!");
     },

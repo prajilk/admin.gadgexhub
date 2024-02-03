@@ -12,7 +12,7 @@ export function useDeleteDeal(onSuccess: () => void) {
     mutationFn: handleDelete,
     onSuccess,
     onError: (error: any) => {
-      if (error.response.status === 401)
+      if (error.response.status === 403)
         toast.error(
           error.response.data.message || "Error in deleting the deal!",
         );

@@ -16,7 +16,7 @@ export function useCreateCustomer() {
     mutationFn: handleUpdate,
     onSuccess: () => toast.success("New customer created successfully."),
     onError: (error: any) => {
-      if (error.response.status === 401 || error.response.status === 409)
+      if (error.response.status === 403 || error.response.status === 409)
         toast.error(
           error.response.data.message || "Error in creating customer!",
         );

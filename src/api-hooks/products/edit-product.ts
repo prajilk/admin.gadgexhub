@@ -20,8 +20,12 @@ export function useEditProduct() {
   return useMutation({
     mutationFn: handleCreate,
     onSuccess: () => toast.success("Product edited successfully."),
-    onError: (error) => {
-      toast.error(error.message);
+    onError: (error: any) => {
+      if (error.response.status === 403)
+        toast.error(
+          error.response.data.message || "Error in saving the product!",
+        );
+      else toast.error("Error in saving the product!");
     },
     onSettled: () => queryClient.invalidateQueries({ queryKey: ["products"] }),
   });
